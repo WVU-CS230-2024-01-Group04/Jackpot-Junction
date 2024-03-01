@@ -1,22 +1,28 @@
 /* This is the front page where everyone first comes to the site*/
 .frontpage
 {
+    display: flex;
     background-color: rgb(55, 68, 68);
+    padding-top: 15px;
+    padding-left: 15px;
 }
 
-.frontpage_Welcome
+.frontpage_logo
 {
-    margin-left: 900px;
+    justify-content: left;
+    border: 3px solid black;
+    margin-right: 50px;
 }
 
-.frontpage img
+.frontpage_welcome
 {
-    border: 3px solid black
+    justify-content: right;
 }
 
-.frontpage button
+.frontpage_welcome button
 {
-    scale: 5;
+    margin-left: 25%; 
+    scale: 2;
 }
 
 /* This is the signin/login page */
