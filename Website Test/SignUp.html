@@ -7,22 +7,35 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body class="signin">
-        <div>
-            <h1>Welcome to Jackpot Junction!</h1>
-            <p>Please sign-in with your information and you'll be gambling in no time!</p>
+    <div>
+        <h1 style="color: white" >Welcome to Jackpot Junction!</h1>
+        <p>Please sign-in with your information and you'll be gambling in no time!</p>
+        <form action="MainPage.html" id="Registration">
             <div>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="newUsername" name="newUsername" required>
             </div>
+        
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+       
             <div>
                 <label for="password">Password:</label>
-                <input type="text" id="password" name="password">
+                <input type="text" id="password" name="password" required>
             </div>
+        
             <div>
-                <a href="MainPage.html">
-                    <button>Sign-Up</button>
-                </a>
+                <label for="reentrypassword">Enter Password again:</label>
+                <input type="text" id="reentrypassword" name="reentrypassword" required>
             </div>
-        </div>
+        
+            <div>
+                <button type="submit" class="signupbtn">Sign Up</button>
+                
+            </div>
+        </form>
+    </div>
 </body>
 </html>
