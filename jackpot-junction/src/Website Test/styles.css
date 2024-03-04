@@ -1,0 +1,35 @@
+/* This is the front page where everyone first comes to the site*/
+.frontpage
+{
+    display: flex;
+    background-color: rgb(55, 68, 68);
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.frontpage_logo
+{
+    justify-content: left;
+    border: 3px solid black;
+    margin-right: 50px;
+}
+
+.frontpage_welcome
+{
+    justify-content: right;
+}
+
+.frontpage_welcome button
+{
+    margin-left: 25%; 
+    scale: 2;
+}
+
+/* This is the signin/login page */
+.signin
+{
+    margin-left: 500px;
+    background-color: rgb(55, 68, 68);
+}
+
+/* This is the main page where all the games and stuff will be */
