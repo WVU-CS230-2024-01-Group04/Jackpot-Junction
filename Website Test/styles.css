@@ -2,7 +2,7 @@
 .frontpage
 {
     display: flex;
-    background-color: rgb(216, 51, 74);
+    background-color: rgb(255,255,255);
     padding-top: 15px;
     padding-left: 15px;
 }
@@ -30,14 +30,14 @@
 {
     text-align:auto;
     font-family: cursive;
-    background-color: rgb(216, 51, 74);
+    background-color: rgb(255,255,255);
 }
 
 .SignUp
 {
     text-align:center;
     font-family: cursive;
-    background-color: rgb(216, 51, 74);
+    background-color: rgb(255, 255, 255);
 }
 
 /* This is the main page where all the games and stuff will be */
