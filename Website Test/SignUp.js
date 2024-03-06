@@ -13,13 +13,21 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Passwords do not match!");
             event.preventDefault(); 
         }
-        
+        // Validation for checking the password length
         if (password.value.length < 8) {
             alert("Password needs to be 8 or more characters!");
             event.preventDefault();
         }
-    
-        // If more validation is needed later add it here
+        // Validation for checking for an uppercase letter
+        if(!(/[A-Z]/.test(password.value))) {
+            alert("Password needs at least one uppercase letter!");
+            event.preventDefault();
+        }
+        // Validation for checking for special charcters
+        // Feel free to add more special characters as needed
+        if(!(/[!@$#?*%&]/.test(password.value))) {
+            alert("Password needs at least one special character!")
+        }
 
         console.log("registered user "+newUsername.value);
     }
