@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let newUsername = document.getElementById("newUsername");
         let email = document.getElementById("email");
         let password = document.getElementById("password");
-        let reEnterPassword = document.getElementById("reEnterPassword");
+        let reEnterPassword = document.getElementById("reentrypassword");
 
         // Validation for re-entering the pass
         if (password.value !== reEnterPassword.value) {
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault(); 
         }
         
-        if (password.length <= 8) {
+        if (password.value.length < 8) {
             alert("Password needs to be 8 or more characters!");
             event.preventDefault();
         }
