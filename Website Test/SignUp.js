@@ -14,22 +14,25 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault(); 
         }
         // Validation for checking the password length
-        if (password.value.length < 8) {
+        else if (password.value.length < 8) {
             alert("Password needs to be 8 or more characters!");
             event.preventDefault();
         }
         // Validation for checking for an uppercase letter
-        if(!(/[A-Z]/.test(password.value))) {
+        else if(!(/[A-Z]/.test(password.value))) {
             alert("Password needs at least one uppercase letter!");
             event.preventDefault();
         }
         // Validation for checking for special charcters
         // Feel free to add more special characters as needed
-        if(!(/[!@$#?*%&]/.test(password.value))) {
+        else if(!(/[!@$#?*%&]/.test(password.value))) {
             alert("Password needs at least one special character!")
+            event.preventDefault();
         }
-
-        console.log("registered user "+newUsername.value);
+        else { //password is valid
+            console.log("registering user "+newUsername.value);
+            localStorage.setItem("loginInfo", JSON.stringify({username: newUsername.value, email: email.value, pw: password.value}))
+        }
     }
 });
 
