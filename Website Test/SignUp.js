@@ -20,5 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     
         // If more validation is needed later add it here
+
+        console.log("registered user "+newUsername.value);
     }
 });
+
+console.log("running");
