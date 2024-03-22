@@ -1,21 +1,47 @@
 import "bootstrap/dist/css/bootstrap.css"
 import React from "react"
+import { Link } from "react-router-dom"
 
-function Navbar()
+const Navbar = ({currentPage}) =>
 { 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-  
+      
     <div className="navbar-nav" style={{marginLeft: '10px'}}>
-      <h1 className="navbar-brand" >Jackpot Junction</h1>
+      <Link className="navbar-brand" to="/">Jackpot Junction</Link>
+
+      <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ml-auto">
+            {currentPage === 'frontpage' && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup">Signup</Link>
+                </li>
+              </>
+            )}
+            {currentPage === 'login/signup' && (
+              <></>
+            )}
+            {currentPage === 'main' && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/user">User</Link>
+                </li>
+              </>
+            )}
+            {currentPage === 'user' && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/main">Main</Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
     </div>
-
-    <form className="form-inline" style={{ display: 'flex', justifyContent: 'flex-end', marginRight: '10px' }}>
-      <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style={{marginRight: '10px'}}></input>
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-
-    
 
   </nav>
   )
