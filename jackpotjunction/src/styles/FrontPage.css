@@ -1,0 +1,30 @@
+/* This is the front page where everyone first comes to the site*/
+.frontpage
+{
+    display: flex;
+    background-color: rgb(255,255,255);
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.frontpage_logo
+{
+    justify-content: left;
+    border: 3px solid black;
+    margin: 25px;
+}
+
+.frontpage_welcome
+{
+    justify-content: right;
+}
+
+.frontpage h1
+{
+    text-align: center;
+}
+
+.frontpage h3
+{
+    padding-bottom: 5%;
+}
