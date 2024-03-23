@@ -41,6 +41,9 @@ const Navbar = ({currentPage}) =>
                 <li className="nav-item">
                   <Link className="nav-link" to="/slots">Slot Games</Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/cards">Card Games</Link>
+                </li>
               </>
             )}
             {currentPage === 'user' && (
@@ -54,6 +57,19 @@ const Navbar = ({currentPage}) =>
               </>
             )}
             {currentPage === 'slots' && (
+              <>
+                <li>
+                  <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/main">Main</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/user">User</Link>
+                </li>
+              </>
+            )}
+            {currentPage === 'cards' && (
               <>
                 <li>
                   <Link className="navbar-brand" to="/main">Jackpot Junction</Link>

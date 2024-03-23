@@ -6,7 +6,9 @@ import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
 import UserPage from './pages/UserPage';
 import SlotsPage from './pages/SlotsPage';
+import CardsPage from './pages/CardsPage';
 import Slots1 from './games/slots1';
+import Blackjack from './games/blackjack';
 
 function App() {
   return (
@@ -19,8 +21,11 @@ function App() {
           <Route path="/main" element={<MainPage/>}/>
           <Route path="/user" element={<UserPage/>}/>
           <Route path="/slots" element={<SlotsPage/>}/>
+          <Route path="/cards" element={<CardsPage/>}/>
 
           <Route path="/slots1" element={<Slots1/>}/>
+
+          <Route path="/blackjack" element={<Blackjack/>}/>
         </Routes>      
       </BrowserRouter>
     </div>
