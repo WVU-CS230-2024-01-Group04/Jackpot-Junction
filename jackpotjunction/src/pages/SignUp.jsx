@@ -6,7 +6,7 @@ import SignUpForm from "../components/SignUpForm"
 const SignUp = () => {
     return(
         <div>
-            <Navbar currentPage="signup"/>
+            <Navbar currentPage="login/signup"/>
 
             <h1>Signup Page</h1>
             <p>Input your mothers maiden name NOW!</p>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 const LogIn = () => {
     return(
         <div>
-            <Navbar currentPage="login"/>
+            <Navbar currentPage="login/signup"/>
 
             <h1>Login Page</h1>
             <p>Input your mothers maiden name NOW!</p>
