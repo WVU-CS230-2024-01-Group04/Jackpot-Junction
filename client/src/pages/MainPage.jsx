@@ -12,17 +12,17 @@ const MainPage = () => {
                 <h1>Welcome to Jackpot Junction!</h1>
             </div>
             <div class="fav_games">
-                <!-- A list of favorite games determined by playtime, low priority for now -->
+               { /*A list of favorite games determined by playtime, low priority for now */}
             </div>
             <div class="stat_block">
-                <!-- a short summary of the user's stats or win/loss ratio -->
-            </div>
+            { /*a short summary of the user's stats or win/loss ratio */}
             <div class="social">
-                <!-- get info from social page, basically a quick guide to friends, make it scroll down -->
+                  { /*get info from social page, basically a quick guide to friends, make it scroll down */}
             </div>
             <div class="bet_info">
-                <!-- list of bets, get info from games -->
+             { /*list of bets, get info from games */}
             </div>
+        </div>
         </div>
     )
 }

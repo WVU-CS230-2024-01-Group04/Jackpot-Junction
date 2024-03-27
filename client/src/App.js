@@ -10,9 +10,19 @@ import CardsPage from './pages/CardsPage';
 import Slots1 from './games/slots1';
 import Blackjack from './games/blackjack';
 
+import { Amplify } from 'aws-amplify';
+
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+
+
 function App() {
   return (
     <div className="App">
+
+      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<FrontPage/>}/>
@@ -32,4 +42,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
