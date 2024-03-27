@@ -16,13 +16,9 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-
-
 function App() {
   return (
     <div className="App">
-
-      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<FrontPage/>}/>
