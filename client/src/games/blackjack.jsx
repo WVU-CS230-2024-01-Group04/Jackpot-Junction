@@ -1,6 +1,6 @@
 import React from "react"
 
-const blackjack = () =>
+const blackjack = () => 
 {
     return(
         <div>blackjack</div>
