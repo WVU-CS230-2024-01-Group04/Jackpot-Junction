@@ -2,12 +2,10 @@ import React from "react"
 import Navbar from "../components/Navbar"
 import { Link } from "react-router-dom"
 
-import { Amplify } from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import awsExports from './aws-exports';
 
-Amplify.configure(awsExports);
+
 
 
 const SignUp = () => {
