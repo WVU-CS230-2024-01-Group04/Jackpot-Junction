@@ -1,10 +1,10 @@
 import React from "react"
 
-const blackjack = () => 
+const blackjack1 = () => 
 {
     return(
         <div>blackjack</div>
     )
 }
 
-export default blackjack
+export default blackjack1
