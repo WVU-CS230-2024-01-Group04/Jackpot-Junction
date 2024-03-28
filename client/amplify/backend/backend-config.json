@@ -6,7 +6,7 @@
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
-          "TOTP"
+          "SMS"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [
@@ -15,7 +15,7 @@
             "REQUIRES_SYMBOLS",
             "REQUIRES_UPPERCASE"
           ],
-          "passwordPolicyMinLength": 10
+          "passwordPolicyMinLength": 12
         },
         "signupAttributes": [
           "EMAIL",
