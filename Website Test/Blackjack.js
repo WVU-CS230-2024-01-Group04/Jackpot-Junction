@@ -69,11 +69,11 @@ function playerAction(hit) {
     }
 }
 
-// dealer's turn (set so that if the dealer's points are below 17 they hit)
+// dealer's turn (set so that if the dealer's points are below 17 they hit and if player points are less than theirs their turn ends)
 function dealerTurn() {
     document.getElementById('hitButton').disabled = true;
     document.getElementById('standButton').disabled = true;
-    while (dealerPoints < 17) {
+    while (dealerPoints < 17 && !(playerPoints < dealerPoints)) {
         dealerPoints += getRandomCard();
         console.log(`Dealer hits and now has ${dealerPoints} points.`);
         updatePointsDisplay();
