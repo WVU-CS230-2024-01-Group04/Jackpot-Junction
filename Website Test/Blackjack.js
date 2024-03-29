@@ -18,7 +18,7 @@ function createAndShuffleDeck() {
     return deck;
 }
 
-// your deck of cards
+// your deck of cards 
 let deckOfCards = createAndShuffleDeck();
 
 // initial points at the begining of the game

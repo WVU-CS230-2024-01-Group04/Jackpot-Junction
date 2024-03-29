@@ -18,4 +18,4 @@ const BlackjackPage = () => {
     )
 }
 
-export default BlackjackPage
+export default BlackjackPage 

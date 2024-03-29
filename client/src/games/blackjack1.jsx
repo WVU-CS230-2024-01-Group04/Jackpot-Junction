@@ -7,4 +7,4 @@ const blackjack1 = () =>
     )
 }
 
-export default blackjack1
+export default blackjack1 
