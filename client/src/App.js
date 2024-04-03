@@ -11,6 +11,11 @@ import CardsPage from './pages/CardsPage';
 import Slots1 from './games/slots1';
 import Blackjack1 from './games/blackjack1';
 
+import { Amplify } from 'aws-amplify';
+
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
 
 function App() {
