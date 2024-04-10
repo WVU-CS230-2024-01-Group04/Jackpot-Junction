@@ -2,42 +2,46 @@ let outputText;
 let winningsText;
 let winnings = 10;
 
-/*let slot1state = 0;
-let slot2state = 0;
-let slot3state = 0;*/
+
 let slotstate = [];
-let slotnum = 5;
+let slotnum = 7;
+let rows = 5;
 let symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"];
 
 let ready = true;
 
 function roll(){
-    /*slot1state = Math.floor(Math.random() * symbols.length);
-    slot2state = Math.floor(Math.random() * symbols.length);
-    slot3state = Math.floor(Math.random() * symbols.length);*/
     for(let i = 0; i<slotnum;i++){
         slotstate[i] = Math.floor(Math.random() * symbols.length);
     }
 }
 
+function display(showslots){
+    let str = "";
+    for(let row = 0; row<rows; row++){
+        for(let col = 0; col<slotnum; col++){
+            str += symbols[
+                (col < showslots) ? (slotstate[col]+row)%symbols.length : Math.floor(Math.random()*symbols.length)
+            ];
+            if(col != slotnum-1)
+                str += " ";
+        }
+        if(row != rows-1)
+            str += "\n";
+    }
+    return str;
+}
+
 function reveal(){
-    /*let show1 = false;
-    let show2 = false;
-    let show3 = false;*/
-    let showslot = [];
+    let showslot = 0;
     let interval;
     for(let i = 0; i<slotnum;i++){
-        showslot[i] = false;
         setTimeout(function(event){
-            showslot[i] = true;
-            if (i == slotnum-1){
+            //when it becomes time to reveal this slot
+            showslot++;
+            if (i == slotnum-1){ //this is the last slot?
                 clearInterval(interval);
-                let str = "";
-                for(let j = 0; j<slotnum-1; j++){
-                    str += symbols[slotstate[j]]+" ";
-                }
-                str+= symbols[slotstate[slotnum-1]];
-                outputText.innerText = str;
+                outputText.innerText = display(slotnum);
                 payout();
                 winningsText.innerText = winnings;
                 ready = true;
@@ -46,32 +50,8 @@ function reveal(){
     }
 
     interval = setInterval(function(event){
-        str = "";
-        for(let j = 0; j<slotnum-1; j++){
-            str+=symbols[showslot[j] ? slotstate[j] : Math.floor(Math.random()*symbols.length)];
-            str+=" ";
-        }
-        str+= symbols[showslot[slotnum-1] ? slotstate[slotnum-1] : Math.floor(Math.random()*symbols.length)];
-        outputText.innerText = str;
-        /*outputText.innerText = symbols[ show1 ? slot1state : Math.floor(Math.random()*symbols.length)]+" "+
-        symbols[show2 ? slot2state : Math.floor(Math.random()*symbols.length)]+" "+
-        symbols[show3 ? slot3state : Math.floor(Math.random()*symbols.length)];*/
+        outputText.innerText = display(showslot);
     }, 10)
-
-    /*setTimeout(function(event){
-        show1 = true;
-    }, 1000);
-    setTimeout(function(event){
-        show2 = true;
-    }, 2000);
-    setTimeout(function(event){
-        show3 = true;
-        clearInterval(interval);
-        outputText.innerText = symbols[slot1state]+" "+symbols[slot2state]+" "+symbols[slot3state];
-        payout();
-        winningsText.innerText = winnings;
-        ready = true;
-    }, 3000);*/
 }
 
 function royalflush(){
