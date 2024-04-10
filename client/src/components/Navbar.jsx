@@ -36,7 +36,7 @@ const Navbar = ({currentPage}) =>
                   <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/user">User</Link>
+                  <Link className="nav-link" to="/userpage">User</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/slots">Slot Games</Link>
@@ -46,7 +46,7 @@ const Navbar = ({currentPage}) =>
                 </li>
               </>
             )}
-            {currentPage === 'user' && (
+            {currentPage === 'userpage' && (
               <>
                 <li>
                   <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
@@ -65,7 +65,7 @@ const Navbar = ({currentPage}) =>
                   <Link className="nav-link" to="/main">Main</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/user">User</Link>
+                  <Link className="nav-link" to="/userpage">User</Link>
                 </li>
               </>
             )}
@@ -78,7 +78,7 @@ const Navbar = ({currentPage}) =>
                   <Link className="nav-link" to="/main">Main</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/user">User</Link>
+                  <Link className="nav-link" to="/userpage">User</Link>
                 </li>
               </>
             )}

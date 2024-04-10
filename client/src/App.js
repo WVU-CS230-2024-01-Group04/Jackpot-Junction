@@ -22,10 +22,11 @@ function App() {
           <Route path="/login" element={<LogIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/main" element={<MainPage/>}/>
-          <Route path="/user" element={<UserPage/>}/>
+          <Route path="/userpage" element={<UserPage/>}/>
           <Route path="/slots" element={<SlotsPage/>}/>
           <Route path="/blackjack" element={<BlackjackPage/>}/>
           <Route path="/cards" element={<CardsPage/>}/>
+
           
 
           <Route path="/slots1" element={<Slots1/>}/>
