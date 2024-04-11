@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify539c8cc24e9a4-staging-150800-authRole",
+      "UnauthRoleArn": "arn:aws:iam::058264360143:role/amplify-amplify539c8cc24e9a4-staging-150800-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::058264360143:role/amplify-amplify539c8cc24e9a4-staging-150800-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-amplify539c8cc24e9a4-staging-150800-deployment",
+      "UnauthRoleName": "amplify-amplify539c8cc24e9a4-staging-150800-unauthRole",
+      "StackName": "amplify-amplify539c8cc24e9a4-staging-150800",
+      "StackId": "arn:aws:cloudformation:us-east-2:058264360143:stack/amplify-amplify539c8cc24e9a4-staging-150800/cd2bb4c0-ec4b-11ee-8dfb-0a5096988b07",
+      "AmplifyAppId": "d8ihxt4u7ebpu"
+    },
+    "categories": {
+      "auth": {
+        "JackpotJunction": {}
+      }
+    }
+  }
+}

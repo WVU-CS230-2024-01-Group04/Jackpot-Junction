@@ -10,13 +10,20 @@
 <body>
     <h1>Blackjack Game</h1>
     <button id="startGame">Start Game</button>
+    <div id="betSection">
+        <label for="betAmount">Enter your bet:</label>
+        <input type="number" id="betAmount" min="1" max="100" value="10">
+        <button id="confirmBet">Confirm Bet</button>
+    </div>
     <div id="gameArea">
-    <p id="playerPoints">Player points: 0</p>
-    <p id="dealerPoints">Dealer points: 0</p>
-    <p id="playerTokens">Player tokens: 100</p>
-    <p id="gameResult"></p>
-    <button id="hitButton">Hit</button>
-    <button id="standButton">Stand</button>
+        <p id="playerPoints">Player points: 0</p>
+        <p id="dealerPoints">Dealer points: 0</p>
+        <p id="playerTokens">Player tokens: 100</p>
+        <p id="gameResult"></p>
+        <button id="hitButton">Hit</button>
+        <button id="standButton">Stand</button>
+        <button id="aceOneButton" style="display:none;">Ace as 1</button>
+        <button id="aceElevenButton" style="display:none;">Ace as 11</button>
     </div>
     <div id="log"></div>
 </body>
