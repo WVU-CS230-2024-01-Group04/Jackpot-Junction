@@ -18,7 +18,7 @@ const SlotsRules = () => {
                     You can bet a certain amount of money and watch the wheels spin.
                     </li>
                     <li>
-                    If the wheels land in a certain combination, you win.
+                    If central row has certain combinations, you win.
                     </li>
                     <li>Simple, Right?</li>
                 </ul>
