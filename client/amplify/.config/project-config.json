@@ -1,5 +1,12 @@
 {
+<<<<<<< HEAD
   "projectName": "Gambling",
+=======
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "JackpotJunction",
+>>>>>>> 63578e0b33b3572f493e95fa3f0760fa8e66c243
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {
@@ -10,8 +17,12 @@
       "BuildCommand": "npm.cmd run-script build",
       "StartCommand": "npm.cmd run-script start"
     }
+<<<<<<< HEAD
   },
   "providers": [
     "awscloudformation"
   ]
+=======
+  }
+>>>>>>> 63578e0b33b3572f493e95fa3f0760fa8e66c243
 }

@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
 import UserPage from './pages/UserPage';
 import SlotsPage from './pages/SlotsPage';
+import SlotsRules from './pages/SlotsRules';
 import BlackjackPage from './pages/BlackjackPage';
 import CardsPage from './pages/CardsPage';
 import Slots1 from './games/slots1';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/slots" element={<SlotsPage/>}/>
           <Route path="/blackjack" element={<BlackjackPage/>}/>
           <Route path="/cards" element={<CardsPage/>}/>
+          <Route path="/slotsrules" element={<SlotsRules/>}/>
           
 
           <Route path="/slots1" element={<Slots1/>}/>
@@ -43,3 +45,4 @@ function App() {
 }
 
 export default App; 
+

@@ -1,11 +1,16 @@
 {
   "auth": {
+<<<<<<< HEAD
     "gamblingda38ebd1": {
+=======
+    "JackpotJunction": {
+>>>>>>> 63578e0b33b3572f493e95fa3f0760fa8e66c243
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
+<<<<<<< HEAD
           "SMS"
         ],
         "passwordProtectionSettings": {
@@ -15,6 +20,23 @@
         "signupAttributes": [
           "BIRTHDATE",
           "EMAIL"
+=======
+          "TOTP"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ],
+          "passwordPolicyMinLength": 10
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "BIRTHDATE",
+          "PREFERRED_USERNAME"
+>>>>>>> 63578e0b33b3572f493e95fa3f0760fa8e66c243
         ],
         "socialProviders": [],
         "usernameAttributes": [],

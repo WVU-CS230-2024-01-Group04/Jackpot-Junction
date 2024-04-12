@@ -12,7 +12,7 @@ const SlotsPage = () => {
             <h3>Here is where all slots-type games on the site are.</h3>
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '25px'}}>
-                <GameCard image={slotsimg1} link="/slots1" title="Slots 1" description="The first slots game ever in existence its crazy."/>
+                <GameCard image={slotsimg1} link="/SlotsRules" title="Slots 1" description="The first slots game ever in existence its crazy."/>
             </div>
         </div>
     )
