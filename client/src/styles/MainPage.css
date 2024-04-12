@@ -2,3 +2,19 @@
 {
     border: 2px solid black;
 }
+
+table{
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+#topRow{
+    height: 10px;
+    border: 1px solid black;
+}
+table>tr>th>tr>td{
+    padding: 10px;
+}
+.Emoji{
+    font-size: x-large;
+}
