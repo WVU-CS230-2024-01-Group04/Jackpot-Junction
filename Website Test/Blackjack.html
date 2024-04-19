@@ -16,8 +16,14 @@
         <button id="confirmBet">Confirm Bet</button>
     </div>
     <div id="gameArea">
-        <p id="playerPoints">Player points: 0</p>
-        <p id="dealerPoints">Dealer points: 0</p>
+        <div id="playerArea">
+            <p id="playerPoints">Player points: 0</p>
+            <div id="playerCards" class="card-container"></div>
+        </div>
+        <div id="dealerArea">
+            <p id="dealerPoints">Dealer points: 0</p>
+            <div id="dealerCards" class="card-container"></div>
+        </div>
         <p id="playerTokens">Player tokens: 100</p>
         <p id="gameResult"></p>
         <button id="hitButton">Hit</button>

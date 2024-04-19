@@ -2,9 +2,64 @@
 // in the future each player should have their token balance linked to their profile
 let playerTokens = 100;
 
+const cardImages = {
+    '2C': { img: 'blackjack cards/2_of_clubs.png', value: 2 },
+    '2D': { img: 'blackjack cards/2_of_diamonds.png', value: 2 },
+    '2H': { img: 'blackjack cards/2_of_hearts.png', value: 2 },
+    '2S': { img: 'blackjack cards/2_of_spades.png', value: 2 },
+    '3C': { img: 'blackjack cards/3_of_clubs.png', value: 3 },
+    '3D': { img: 'blackjack cards/3_of_diamonds.png', value: 3 },
+    '3H': { img: 'blackjack cards/3_of_hearts.png', value: 3 },
+    '3S': { img: 'blackjack cards/3_of_spades.png', value: 3 },
+    '4C': { img: 'blackjack cards/4_of_clubs.png', value: 4 },
+    '4D': { img: 'blackjack cards/4_of_diamonds.png', value: 4 },
+    '4H': { img: 'blackjack cards/4_of_hearts.png', value: 4 },
+    '4S': { img: 'blackjack cards/4_of_spades.png', value: 4 },
+    '5C': { img: 'blackjack cards/5_of_clubs.png', value: 5 },
+    '5D': { img: 'blackjack cards/5_of_diamonds.png', value: 5 },
+    '5H': { img: 'blackjack cards/5_of_hearts.png', value: 5 },
+    '5S': { img: 'blackjack cards/5_of_spades.png', value: 5 },
+    '6C': { img: 'blackjack cards/6_of_clubs.png', value: 6 },
+    '6D': { img: 'blackjack cards/6_of_diamonds.png', value: 6 },
+    '6H': { img: 'blackjack cards/6_of_hearts.png', value: 6 },
+    '6S': { img: 'blackjack cards/6_of_spades.png', value: 6 },
+    '7C': { img: 'blackjack cards/7_of_clubs.png', value: 7 },
+    '7D': { img: 'blackjack cards/7_of_diamonds.png', value: 7 },
+    '7H': { img: 'blackjack cards/7_of_hearts.png', value: 7 },
+    '7S': { img: 'blackjack cards/7_of_spades.png', value: 7 },
+    '8C': { img: 'blackjack cards/8_of_clubs.png', value: 8 },
+    '8D': { img: 'blackjack cards/8_of_diamonds.png', value: 8 },
+    '8H': { img: 'blackjack cards/8_of_hearts.png', value: 8 },
+    '8S': { img: 'blackjack cards/8_of_spades.png', value: 8 },
+    '9C': { img: 'blackjack cards/9_of_clubs.png', value: 9 },
+    '9D': { img: 'blackjack cards/9_of_diamonds.png', value: 9 },
+    '9H': { img: 'blackjack cards/9_of_hearts.png', value: 9 },
+    '9S': { img: 'blackjack cards/9_of_spades.png', value: 9 },
+    '10C': { img: 'blackjack cards/10_of_clubs.png', value: 10 },
+    '10D': { img: 'blackjack cards/10_of_diamonds.png', value: 10 },
+    '10H': { img: 'blackjack cards/10_of_hearts.png', value: 10 },
+    '10S': { img: 'blackjack cards/10_of_spades.png', value: 10 },
+    'JC': { img: 'blackjack cards/jack_of_clubs.png', value: 10 },
+    'JD': { img: 'blackjack cards/jack_of_diamonds.png', value: 10 },
+    'JH': { img: 'blackjack cards/jack_of_hearts.png', value: 10 },
+    'JS': { img: 'blackjack cards/jack_of_spades.png', value: 10 },
+    'QC': { img: 'blackjack cards/queen_of_clubs.png', value: 10 },
+    'QD': { img: 'blackjack cards/queen_of_diamonds.png', value: 10 },
+    'QH': { img: 'blackjack cards/queen_of_hearts.png', value: 10 },
+    'QS': { img: 'blackjack cards/queen_of_spades.png', value: 10 },
+    'KC': { img: 'blackjack cards/king_of_clubs.png', value: 10 },
+    'KD': { img: 'blackjack cards/king_of_diamonds.png', value: 10 },
+    'KH': { img: 'blackjack cards/king_of_hearts.png', value: 10 },
+    'KS': { img: 'blackjack cards/king_of_spades.png', value: 10 },
+    'AC': { img: 'blackjack cards/ace_of_clubs.png', value: 11 },
+    'AD': { img: 'blackjack cards/ace_of_diamonds.png', value: 11 },
+    'AH': { img: 'blackjack cards/ace_of_hearts.png', value: 11 },
+    'AS': { img: 'blackjack cards/ace_of_spades.png', value: 11 }
+};
+
 // deck creation and shuffling
 function createAndShuffleDeck() {
-    const cards = [2,2,2,2, 3,3,3,3, 4,4,4,4, 5,5,5,5, 6,6,6,6, 7,7,7,7, 8,8,8,8, 9,9,9,9, 10,10,10,10, 0,0,0,0];
+    const cards = ['2C','2D','2H','2S', '3C','3D','3H','3S', '4C','4D','4H','4S', '5C','5D','5H','5S', '6C','6D','6H','6S', '7C','7D','7H','7S', '8C','8D','8H','8S', '9C','9D','9H','9S', '10C','10D','10H','10S', 'JC','JD','JH','JS', 'QC','QD','QH','QS', 'KC','KD','KH','KS', 'AC','AD','AH','AS'];
     let deck = [...cards];
     deck.sort(() => Math.random() - 0.5);
     return deck;
@@ -97,22 +152,24 @@ function updateDealerPoints() {
 function calculatePoints(hand) {
     let sum = 0;
     let aces = 0;
-    for (let card of hand) {
-        if (card === 0) { 
+    for (let cardCode of hand) {
+        let cardValue = cardImages[cardCode].value;
+        if (cardValue === 11) { 
             aces += 1;
         } else {
-            sum += card;
+            sum += cardValue;
         }
     }
     for (let i = 0; i < aces; i++) {
-        if (sum + 11 <= 21) {
-            sum += 11;
+        if (sum + 11 > 21) {
+            sum += 1; 
         } else {
-            sum += 1;
+            sum += 11;
         }
     }
     return sum;
 }
+
 
 // point distribution
 // ties dont impact the score, wins get your betamount back, losses make you lose your bet amount
@@ -185,17 +242,24 @@ function endPlayerTurn() {
 
 // starts the game 
 function startGame() {
-    document.getElementById('log').innerHTML = "";
+    if (betAmount > 0) {
+        document.getElementById('log').innerHTML = "";
+        playerPoints = dealerPoints = 0;
+        document.getElementById('hitButton').disabled = false;
+        document.getElementById('standButton').disabled = false;
 
-    playerPoints = dealerPoints = 0;
-    document.getElementById('hitButton').disabled = false;
-    document.getElementById('standButton').disabled = false;
-    playerHand = [], dealerHand = [];
-    // deals cards one by one
-    dealCardToPlayer();
-    dealCardToPlayer();
-    dealCardToDealer();
-    updatePointsDisplay(); 
+        // clears card display
+        document.getElementById('playerCards').innerHTML = "";
+        document.getElementById('dealerCards').innerHTML = "";
+        
+        playerHand = [], dealerHand = [];
+        dealCardToPlayer();
+        dealCardToPlayer();
+        dealCardToDealer();
+        updatePointsDisplay();
+    } else {
+        alert("Please enter and confirm your bet to start the game.");
+    }
 }
 
 // ends the game automatically when someone busts
@@ -208,8 +272,10 @@ function endGame() {
 }
 
 // displays each recieved card
-function displayCard(participant, card) {
-    console.log(`${participant} received card: ${card}`);
+function displayCard(participant, cardCode) {
+    const cardDetails = cardImages[cardCode]; // use cardCode to fetch card details
+    const cardImage = `<img src="${cardDetails.img}" alt="${cardCode}" />`; // self-closing tag
+    document.getElementById(`${participant.toLowerCase()}Cards`).innerHTML += cardImage;
 }
 
 // listeners for buttons ._.
