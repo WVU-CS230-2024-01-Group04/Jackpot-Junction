@@ -11,6 +11,9 @@ import BlackjackPage from './pages/BlackjackPage';
 import CardsPage from './pages/CardsPage';
 import Slots1 from './games/slots1';
 import Blackjack1 from './games/blackjack1';
+import ChanceGamesPage from './pages/ChanceGamesPage'
+import Roulette from './games/roulette'
+import RouletteRulesPage from './pages/RouletteRulesPage'
 
 
 function App() {
@@ -26,12 +29,15 @@ function App() {
           <Route path="/slots" element={<SlotsPage/>}/>
           <Route path="/blackjack" element={<BlackjackPage/>}/>
           <Route path="/cards" element={<CardsPage/>}/>
-          <Route path="/slotsrules" element={<SlotsRules/>}/>
+          <Route path="/chance" element={<ChanceGamesPage/>}/>
           
-
+          <Route path="/slotsrules" element={<SlotsRules/>}/>
           <Route path="/slots1" element={<Slots1/>}/>
 
           <Route path="/blackjack1" element={<Blackjack1/>}/>
+
+          <Route path="/rouletterules" element={<RouletteRulesPage/>}/>
+          <Route path="/roulette" element={<Roulette/>}/>
         </Routes>      
       </BrowserRouter>
     </div>

@@ -44,6 +44,9 @@ const Navbar = ({currentPage}) =>
                 <li className="nav-item">
                   <Link className="nav-link" to="/cards">Card Games</Link>
                 </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/chance">Chance Games</Link>
+                </li>
               </>
             )}
             {currentPage === 'userpage' && (
@@ -70,6 +73,19 @@ const Navbar = ({currentPage}) =>
               </>
             )}
             {currentPage === 'cards' && (
+              <>
+                <li>
+                  <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/main">Main</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/userpage">User</Link>
+                </li>
+              </>
+            )}
+            {currentPage === 'chance' && (
               <>
                 <li>
                   <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
