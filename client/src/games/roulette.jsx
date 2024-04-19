@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import rouletteSpinnyPart from '../files/RouletteWheel_Inside.png';
+import rouletteSpinnyPart from '../images/RouletteWheel_Inside.png';
 import '../components/roulette.css';
 import RouletteButton from '../components/roulette_button.jsx';
 

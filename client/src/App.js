@@ -13,7 +13,6 @@ import Slots1 from './games/slots1';
 import Blackjack1 from './games/blackjack1';
 
 
-
 function App() {
   return (
     <div className="App">
