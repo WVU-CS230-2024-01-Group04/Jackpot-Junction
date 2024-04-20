@@ -1,35 +1,26 @@
 {
-  "auth": {
-    "JackpotJunction": {
-      "customAuth": false,
+  "api": {
+    "jackpotjunction": {
       "dependsOn": [],
-      "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "TOTP"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [
-            "REQUIRES_LOWERCASE",
-            "REQUIRES_NUMBERS",
-            "REQUIRES_SYMBOLS",
-            "REQUIRES_UPPERCASE"
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
           ],
-          "passwordPolicyMinLength": 10
-        },
-        "signupAttributes": [
-          "EMAIL",
-          "BIRTHDATE",
-          "PREFERRED_USERNAME"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
       },
       "providerPlugin": "awscloudformation",
-      "service": "Cognito"
+      "service": "AppSync"
     }
-  }
+  },
+  "auth": {}
 }
