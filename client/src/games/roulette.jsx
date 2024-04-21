@@ -46,7 +46,7 @@ const Roulette = () => {
         {
             //if not, tell the user an error
             let error = document.getElementById('error');
-            error.textContent = "You must place a bet first";
+            error.textContent = "You must place a bet first.";
             error.style.color = "red";
             return;
         }
@@ -57,8 +57,22 @@ const Roulette = () => {
         }
 
         //taking money away from account based on bets placed
+        //if the bet is more than the users money, dont place the bet and send an error
         let totalBetAmount = betArray.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-        setMoney(prevMoney => prevMoney - totalBetAmount);
+        if (totalBetAmount > money)
+        {
+            //if not, tell the user an error
+            let error = document.getElementById('error');
+            error.textContent = "Your bet is too big.";
+            error.style.color = "red";
+            return;
+        }
+        else
+        {
+            let error = document.getElementById('error');
+            error.textContent = "";
+            setMoney(prevMoney => prevMoney - totalBetAmount);
+        }
 
         setWinMessage('Spinning...');
 
