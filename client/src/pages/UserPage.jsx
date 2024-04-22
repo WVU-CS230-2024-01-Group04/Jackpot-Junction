@@ -31,7 +31,7 @@ const StatsPage = () => {
 
     return (
         <div>
-            <Navbar currentPage="statspage" />
+            <Navbar currentPage="userpage" />
 
             <div className="container mt-4">
                 <div className="row">
