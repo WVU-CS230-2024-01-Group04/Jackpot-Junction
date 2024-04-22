@@ -15,6 +15,14 @@ import ChanceGamesPage from './pages/ChanceGamesPage'
 import Roulette from './games/roulette'
 import RouletteRulesPage from './pages/RouletteRulesPage'
 
+import { Amplify } from 'aws-amplify';
+
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+
+
 
 function App() {
   return (
