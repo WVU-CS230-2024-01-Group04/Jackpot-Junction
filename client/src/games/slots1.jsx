@@ -1,9 +1,11 @@
-import React from "react"
+import React from "react";
+import SlotslikeGame from "../components/SlotslikeGame";
 
 const slots1 = () =>
 {
+
     return(
-        <div>slot</div>
+        <SlotslikeGame />
     )
 }
 
