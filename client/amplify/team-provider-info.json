@@ -1,22 +1,4 @@
 {
-  "dev": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-jackpotjunction-dev-cf9df-authRole",
-      "UnauthRoleArn": "arn:aws:iam::058264360143:role/amplify-jackpotjunction-dev-cf9df-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::058264360143:role/amplify-jackpotjunction-dev-cf9df-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-jackpotjunction-dev-cf9df-deployment",
-      "UnauthRoleName": "amplify-jackpotjunction-dev-cf9df-unauthRole",
-      "StackName": "amplify-jackpotjunction-dev-cf9df",
-      "StackId": "arn:aws:cloudformation:us-east-2:058264360143:stack/amplify-jackpotjunction-dev-cf9df/55e867b0-002c-11ef-829c-02469f420285",
-      "AmplifyAppId": "d2guk0wqbl2y37"
-    },
-    "categories": {
-      "auth": {
-        "JackpotJunction": {}
-      }
-    }
-  },
   "staging": {
     "awscloudformation": {
       "AuthRoleName": "amplify-amplify48fef3098aa54-staging-e1f37-authRole",
@@ -27,6 +9,24 @@
       "UnauthRoleName": "amplify-amplify48fef3098aa54-staging-e1f37-unauthRole",
       "StackName": "amplify-amplify48fef3098aa54-staging-e1f37",
       "StackId": "arn:aws:cloudformation:us-east-2:058264360143:stack/amplify-amplify48fef3098aa54-staging-e1f37/a7508250-fd01-11ee-95b6-06ddc5bf7ef7",
+      "AmplifyAppId": "d2guk0wqbl2y37"
+    },
+    "categories": {
+      "auth": {
+        "JackpotJunction": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jackpotjunction-dev-cf9df-authRole",
+      "UnauthRoleArn": "arn:aws:iam::058264360143:role/amplify-jackpotjunction-dev-cf9df-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::058264360143:role/amplify-jackpotjunction-dev-cf9df-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-jackpotjunction-dev-cf9df-deployment",
+      "UnauthRoleName": "amplify-jackpotjunction-dev-cf9df-unauthRole",
+      "StackName": "amplify-jackpotjunction-dev-cf9df",
+      "StackId": "arn:aws:cloudformation:us-east-2:058264360143:stack/amplify-jackpotjunction-dev-cf9df/55e867b0-002c-11ef-829c-02469f420285",
       "AmplifyAppId": "d2guk0wqbl2y37"
     },
     "categories": {
