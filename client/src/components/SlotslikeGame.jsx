@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-//import { generateClient } from 'aws-amplify/api';
-//import * as queries from '../graphql/queries';
+import { generateClient } from 'aws-amplify/api';
+import * as queries from '../graphql/queries';
+import * as mutations from '../graphql/mutations';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const SlotslikeGame = () =>
 {
@@ -30,18 +32,40 @@ const SlotslikeGame = () =>
         }
 
 
-    //const client = generateClient();
-
-    let initialBalance = 0;
-    //const users = client.graphql({ query: queries.listUsers });
-    //console.log(users);
+    
 
     const [output, setOutput] = useState("");
     const [winnings, setWinnings] = useState(10);
     const [ready, setReady] = useState(true);
-    const [slotstate, setslotstate] = useState(Array(cols).fill(0));
+    const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* symbols.length)));
 
+    const {user, signOut} = useAuthenticator((context) => [context.user]);
+    const client = generateClient();
+    const users = client.graphql({ query: queries.listUsers });
+    users.then((value) => {
+        //console.log(users);
+        //console.log(value);
+        //console.log(value.data.listUsers);
+        console.log(value.data.listUsers.items);
+        //console.log(value.data.listUsers.items[0]);
+        console.log(user);
+        if(user != null && user.username != null)
+        value.data.listUsers.items.forEach((u) => {
+            if(u.Username === user.username){
+                console.log(u);
+                setWinnings(u.balance);
+            }
+        });
+    })
+      
+      const createdUser = client.graphql({
+        query: mutations.createUser,
+        variables: { input: {
+            Username: 'dummy'
+          } }
+      });
 
+    //const updateBal = client.graphql({query: mutations.createUser, variables:{input: {id: "testing", Username: "test_user", Balance: 99999}}})
     
     function roll(){
         let localbuildstate = [];
@@ -179,11 +203,11 @@ const SlotslikeGame = () =>
     }
     return(
         <div>
-        <div><h1>Slots:</h1></div>
-        <button onClick={buttonOnClick}>Gamble!</button>
-        <div><p>{output}</p></div>
-        <div><p>{winnings}</p></div>
-    </div>
+            <div><h1>Slots:</h1></div>
+            <button onClick={buttonOnClick}>Gamble!</button>
+            <div><p>{output}</p></div>
+            <div><p>{winnings}</p></div>
+        </div>
     )
 }
 export default SlotslikeGame;

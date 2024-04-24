@@ -1,11 +1,14 @@
 import React from "react";
 import SlotslikeGame from "../components/SlotslikeGame";
+import { Authenticator } from '@aws-amplify/ui-react';
 
 const slots1 = () =>
 {
 
     return(
-        <SlotslikeGame />
+        <Authenticator.Provider>
+            <SlotslikeGame />
+        </Authenticator.Provider>
     )
 }
 
