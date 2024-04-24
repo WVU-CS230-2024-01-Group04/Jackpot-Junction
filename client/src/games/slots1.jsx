@@ -1,5 +1,5 @@
 import React from "react";
-import SlotslikeGame from "../components/SlotslikeGame";
+import {SlotslikeGame} from "../components/SlotslikeGame";
 import { Authenticator } from '@aws-amplify/ui-react';
 import Navbar from "../components/Navbar"
 

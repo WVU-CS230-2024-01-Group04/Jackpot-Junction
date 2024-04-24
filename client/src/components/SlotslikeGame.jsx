@@ -8,38 +8,40 @@ const SlotslikeGame = () =>
 {
     //default parameters
     let cols = 7; let rows = 1;
+        let reel =    [  0,    1,     2,    3,     4,    5,     6,    7,     8,    9,    10,   11];
         let symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"];
-        let scoring = () =>
+        let scoring = (state) =>
         {
             let score = 0;
             //           🍌,🍎, 🍒,  🎰, 🍏,🍊,🍋,🍉,🍇,🍓,🍍,💰
             let worth = [50, 10, 100, 500, 10, 25, 0, 0, 0, 25,  50, 200];
             let bonus = [ 0,  0,   0,   0,  0,  0, 0, 0, 0, 75, 100,   0];
             for(let s = 0; s < symbols.length; s++){
-                if(broken_threes(s)){
+                if(SlotsScoring.broken_threes(state,s)){
                     score += worth[s] * 2 + bonus[s];
-                } else if(lineup_sp(7, s)){
+                } else if(SlotsScoring.lineup_sp(state, 7, s)){
                     score += worth[s] * 5 + bonus[s];
-                } else if(lineup_sp(6, s)){
+                } else if(SlotsScoring.lineup_sp(state, 6, s)){
                     score += worth[s] * 4 + bonus[s];
-                } else if(lineup_sp(5, s)){
+                } else if(SlotsScoring.lineup_sp(state, 5, s)){
                     score += worth[s] * 3 + bonus[s];
-                } else if(lineup_sp(4, s)){
+                } else if(SlotsScoring.lineup_sp(state, 4, s)){
                     score += worth[s] * 2 + bonus[s];
-                } else if(lineup_sp(3, s)){
+                } else if(SlotsScoring.lineup_sp(state, 3, s)){
                     score += worth[s] + bonus[s];
                 }
             }
             return score;
         }
     let costToPlay = 1;
+    let revealPeriod = 1000;
 
     
 
     const [output, setOutput] = useState("");
     const [winnings, setWinnings] = useState(0);
     const [ready, setReady] = useState(true);
-    const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* symbols.length)));
+    const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* reel.length)));
 
     const [initializedBal, setBalInited] = useState(false);
     const [gottenID, setID] = useState("undef");
@@ -65,7 +67,6 @@ const SlotslikeGame = () =>
     }
 
     function pushBal(newBal){
-        console.log(gottenID);
         if(gottenID === "undef")
             return;
         client.graphql({ query: mutations.updateUser, variables: { input: {
@@ -73,11 +74,21 @@ const SlotslikeGame = () =>
             Balance: newBal
         }}});
     }
+
+    function compileStateToSymbols(state){
+        return state.map((colRot) => {
+            let a = [];
+            for (let i = 0; i < rows; i++){
+                a[i] = reel[(colRot + i) % reel.length];
+            }
+            return a;
+        })
+    }
     
     function roll(){
         let localbuildstate = [];
         for(let i = 0; i < cols; i++){
-            localbuildstate[i] = Math.floor(Math.random() * symbols.length);
+            localbuildstate[i] = Math.floor(Math.random() * reel.length);
         }
         setslotstate(localbuildstate);
     }
@@ -87,7 +98,7 @@ const SlotslikeGame = () =>
         for(let row = 0; row < rows; row++){
             for(let col = 0; col < cols; col++){
                 str += symbols[
-                    (col < showslots) ? (slotstate[col] + row) % symbols.length : Math.floor(Math.random() * symbols.length)
+                    (col < showslots) ? reel[(slotstate[col] + row) % reel.length] : Math.floor(Math.random() * symbols.length)
                 ];
                 if(col !== cols-1)
                     str += " ";
@@ -108,94 +119,17 @@ const SlotslikeGame = () =>
                 if (i === cols - 1){ //this is the last slot?
                     clearInterval(interval);
                     setOutput(display(cols));
-                    let score = scoring()
+                    let score = scoring(compileStateToSymbols(slotstate));
                     setWinnings(n => n + score);
                     pushBal(winnings - costToPlay + score);
                     setReady(true);
                 }
-            }, (i+1)*1000);
+            }, (i+1)*revealPeriod);
         }
     
         interval = setInterval(function(event){
             setOutput(display(showslot));
         }, 10)
-    }
-    
-    function ofakind(n){
-        for(let baseslot = 0; baseslot < cols; baseslot++){
-            let val = slotstate[baseslot];
-            let count = 0;
-            for(let i = 0; i < cols; i ++){
-                if(slotstate[i] === val)
-                    count++;
-            }
-            if(count===n) return true;
-        }
-        return false;
-    }
-    
-    function lineup(n){
-        for(let start = 0; start < cols - n; start++){
-            let val = slotstate[start];
-            let count = 0;
-            for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === val){
-                    count++;
-                }
-            }
-            if(count===n) return true;
-        }
-        return false;
-    }
-    function lineup_sp(n, symbol){
-        for(let start = 0; start < cols - n; start++){
-            let count = 0;
-            for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === symbol){
-                    count++;
-                }
-            }
-            if(count === n) return true;
-        }
-        return false;
-    }
-    function broken_threes(symbol){
-        let v = true;
-        for (let i = 0; i < 3; i++)
-            v &&= slotstate[0] === symbol;
-        for (let i = 4; i < 7; i++)
-            v &&= slotstate[i] === symbol;
-        return v;
-    }
-    
-    function diagonalDown(n){
-        for(let start = 0; start<cols-n; start++){
-            let val = slotstate[start];
-            let count = 0;
-            for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === (val + i) % symbols.length){
-                    count++;
-                }
-            }
-            if(count === n) return true;
-        }
-        return false;
-    }
-    function diagonalUp(n){
-        for(let start = 0; start<cols-n; start++){
-            let val = slotstate[start];
-            let count = 0;
-            for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === (val - i) % symbols.length){
-                    count++;
-                }
-            }
-            if(count === n) return true;
-        }
-        return false;
-    }
-    function diagonal(n){
-        return diagonalDown(n) || diagonalUp(n);
     }
 
     function buttonOnClick(){
@@ -220,5 +154,90 @@ const SlotslikeGame = () =>
         </div>
     )
 }
+const SlotsScoring = {
+    ofakind: (slotstate, n) => {
+        let cols = slotstate.length;
+        for(let baseslot = 0; baseslot < cols; baseslot++){
+            let val = slotstate[baseslot];
+            let count = 0;
+            for(let i = 0; i < cols; i ++){
+                if(slotstate[i] === val)
+                    count++;
+            }
+            if(count===n) return true;
+        }
+        return false;
+    },
+    
+    lineup: (slotstate, n) => {
+        let cols = slotstate.length;
+        for(let start = 0; start < cols - n; start++){
+            let val = slotstate[start];
+            let count = 0;
+            for(let i = 0; i < n; i++){
+                if(slotstate[start + i] === val){
+                    count++;
+                }
+            }
+            if(count===n) return true;
+        }
+        return false;
+    },
+    lineup_sp: (slotstate, n, symbol)=>{
+        let cols = slotstate.length;
+        for(let start = 0; start < cols - n; start++){
+            let count = 0;
+            for(let i = 0; i < n; i++){
+                if(slotstate[start + i] === symbol){
+                    count++;
+                }
+            }
+            if(count === n) return true;
+        }
+        return false;
+    }, 
+    broken_threes: (slotstate, symbol) => {
+        let v = true;
+        for (let i = 0; i < 3; i++)
+            v &&= slotstate[0] === symbol;
+        for (let i = 4; i < 7; i++)
+            v &&= slotstate[i] === symbol;
+        return v;
+    },
+    
+    diagonalDown: (slotstate, reel, n) => {
+        let cols = slotstate.length;
+        for(let start = 0; start<cols-n; start++){
+            let val = slotstate[start];
+            let count = 0;
+            for(let i = 0; i < n; i++){
+                if(slotstate[start + i] === (val + i) % reel.length){
+                    count++;
+                }
+            }
+            if(count === n) return true;
+        }
+        return false;
+    },
+    diagonalUp: (slotstate, reel, n) => {
+        let cols = slotstate.length;
+        for(let start = 0; start<cols-n; start++){
+            let val = slotstate[start];
+            let count = 0;
+            for(let i = 0; i < n; i++){
+                if(slotstate[start + i] === (val - i) % reel.length){
+                    count++;
+                }
+            }
+            if(count === n) return true;
+        }
+        return false;
+    },
+    diagonal: (state, reel, n) =>{
+        return SlotsScoring.diagonalDown(state, reel, n) || SlotsScoring.diagonalUp(state, reel, n);
+    }
+}
 
-export default SlotslikeGame;
+
+export default {SlotslikeGame, SlotsScoring};
+export {SlotslikeGame};
