@@ -185,7 +185,7 @@ const Blackjack = () => {
     };
 
     const playerHits = () => {
-        if (deck.length > 0 && tokens > 0 && !gameOver) {
+        if (deck.length > 0 && tokens >= 0 && !gameOver) {
             const newCard = deck[0];
             const newDeck = deck.slice(1);
             const newPlayerCards = [...playerCards, newCard];
@@ -211,7 +211,7 @@ const Blackjack = () => {
         let newDeck = [...deck];
     
         const hitDealerCard = () => {
-            if ((newDealerPoints < playerPoints || newDealerPoints < 17) && newDealerPoints < 21 && newDeck.length > 0) {
+            if ((newDealerPoints < playerPoints || newDealerPoints < 10) && newDealerPoints < 21 && newDeck.length > 0) {
                 const newCard = newDeck[0];
                 newDeck = newDeck.slice(1);
                 newDealerCards.push(newCard);
@@ -307,7 +307,7 @@ const Blackjack = () => {
             <button 
                 className={styles.button} 
                 onClick={playerHits} 
-                disabled={!gameStarted || playerPoints >= 21 || tokens <= 0 || gameOver}
+                disabled={!gameStarted || playerPoints >= 21 || tokens < 0 || gameOver}
             >
                 Hit
             </button>
