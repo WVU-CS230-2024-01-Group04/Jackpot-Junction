@@ -4,10 +4,39 @@ import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
-const SlotslikeGame = () =>
+const SlotslikeGame = ({
+    cols = 7, rows = 1,
+    reel = [  0,    1,     2,    3,     4,    5,     6,    7,     8,    9,    10,   11],
+    symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"],
+    scoring = (state) =>
+    {
+        let score = 0;
+        //           🍌,🍎, 🍒,  🎰, 🍏,🍊,🍋,🍉,🍇,🍓,🍍,💰
+        let worth = [50, 10, 100, 500, 10, 25, 0, 0, 0, 25,  50, 200];
+        let bonus = [ 0,  0,   0,   0,  0,  0, 0, 0, 0, 75, 100,   0];
+        for(let s = 0; s < symbols.length; s++){
+            if(SlotsScoring.broken_threes(state,s)){
+                score += worth[s] * 2 + bonus[s];
+            } else if(SlotsScoring.lineup_sp(state, 7, s)){
+                score += worth[s] * 5 + bonus[s];
+            } else if(SlotsScoring.lineup_sp(state, 6, s)){
+                score += worth[s] * 4 + bonus[s];
+            } else if(SlotsScoring.lineup_sp(state, 5, s)){
+                score += worth[s] * 3 + bonus[s];
+            } else if(SlotsScoring.lineup_sp(state, 4, s)){
+                score += worth[s] * 2 + bonus[s];
+            } else if(SlotsScoring.lineup_sp(state, 3, s)){
+                score += worth[s] + bonus[s];
+            }
+        }
+        return score;
+    },
+    costToPlay = 1,
+    revealPeriod = 1000
+}) =>
 {
     //default parameters
-    let cols = 7; let rows = 1;
+    /*let cols = 7; let rows = 1;
         let reel =    [  0,    1,     2,    3,     4,    5,     6,    7,     8,    9,    10,   11];
         let symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"];
         let scoring = (state) =>
@@ -34,8 +63,7 @@ const SlotslikeGame = () =>
             return score;
         }
     let costToPlay = 1;
-    let revealPeriod = 1000;
-
+    let revealPeriod = 1000;*/
     
 
     const [output, setOutput] = useState("");
@@ -49,7 +77,6 @@ const SlotslikeGame = () =>
     const {user} = useAuthenticator((context) => [context.user]);
     const client = generateClient();
     getPlayersBal();
-
     function getPlayersBal(){
         const users = client.graphql({ query: queries.listUsers });
         users.then((value) => {
@@ -158,10 +185,10 @@ const SlotsScoring = {
     ofakind: (slotstate, n) => {
         let cols = slotstate.length;
         for(let baseslot = 0; baseslot < cols; baseslot++){
-            let val = slotstate[baseslot];
+            let val = slotstate[baseslot][0];
             let count = 0;
             for(let i = 0; i < cols; i ++){
-                if(slotstate[i] === val)
+                if(slotstate[i][0] === val)
                     count++;
             }
             if(count===n) return true;
@@ -172,10 +199,10 @@ const SlotsScoring = {
     lineup: (slotstate, n) => {
         let cols = slotstate.length;
         for(let start = 0; start < cols - n; start++){
-            let val = slotstate[start];
+            let val = slotstate[start][0];
             let count = 0;
             for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === val){
+                if(slotstate[start + i][0] === val){
                     count++;
                 }
             }
@@ -188,7 +215,7 @@ const SlotsScoring = {
         for(let start = 0; start < cols - n; start++){
             let count = 0;
             for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === symbol){
+                if(slotstate[start + i][0] === symbol){
                     count++;
                 }
             }
@@ -199,19 +226,19 @@ const SlotsScoring = {
     broken_threes: (slotstate, symbol) => {
         let v = true;
         for (let i = 0; i < 3; i++)
-            v &&= slotstate[0] === symbol;
+            v &&= slotstate[0][0] === symbol;
         for (let i = 4; i < 7; i++)
-            v &&= slotstate[i] === symbol;
+            v &&= slotstate[i][0] === symbol;
         return v;
     },
     
     diagonalDown: (slotstate, reel, n) => {
         let cols = slotstate.length;
         for(let start = 0; start<cols-n; start++){
-            let val = slotstate[start];
+            let val = slotstate[start][0];
             let count = 0;
             for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === (val + i) % reel.length){
+                if(slotstate[start + i][0] === (val + i) % reel.length){
                     count++;
                 }
             }
@@ -222,10 +249,10 @@ const SlotsScoring = {
     diagonalUp: (slotstate, reel, n) => {
         let cols = slotstate.length;
         for(let start = 0; start<cols-n; start++){
-            let val = slotstate[start];
+            let val = slotstate[start][0];
             let count = 0;
             for(let i = 0; i < n; i++){
-                if(slotstate[start + i] === (val - i) % reel.length){
+                if(slotstate[start + i][0] === (val - i) % reel.length){
                     count++;
                 }
             }
