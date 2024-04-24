@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-//import { generateClient } from 'aws-amplify/api';
-//import * as queries from '../graphql/queries';
+import { generateClient } from 'aws-amplify/api';
+import * as queries from '../graphql/queries';
+import * as mutations from '../graphql/mutations';
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const SlotslikeGame = () =>
 {
@@ -9,39 +11,68 @@ const SlotslikeGame = () =>
         let symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"];
         let scoring = () =>
         {
+            let score = 0;
             //           🍌,🍎, 🍒,  🎰, 🍏,🍊,🍋,🍉,🍇,🍓,🍍,💰
             let worth = [50, 10, 100, 500, 10, 25, 0, 0, 0, 25,  50, 200];
             let bonus = [ 0,  0,   0,   0,  0,  0, 0, 0, 0, 75, 100,   0];
             for(let s = 0; s < symbols.length; s++){
                 if(broken_threes(s)){
-                    setWinnings(winnings + worth[s] * 2 + bonus[s]);
+                    score += worth[s] * 2 + bonus[s];
                 } else if(lineup_sp(7, s)){
-                    setWinnings(winnings + worth[s] * 5 + bonus[s]);
+                    score += worth[s] * 5 + bonus[s];
                 } else if(lineup_sp(6, s)){
-                    setWinnings(winnings + worth[s] * 4 + bonus[s]);
+                    score += worth[s] * 4 + bonus[s];
                 } else if(lineup_sp(5, s)){
-                    setWinnings(winnings + worth[s] * 3 + bonus[s]);
+                    score += worth[s] * 3 + bonus[s];
                 } else if(lineup_sp(4, s)){
-                    setWinnings(winnings + worth[s] * 2 + bonus[s]);
+                    score += worth[s] * 2 + bonus[s];
                 } else if(lineup_sp(3, s)){
-                    setWinnings(winnings + worth[s] + bonus[s]);
+                    score += worth[s] + bonus[s];
                 }
             }
+            return score;
         }
+    let costToPlay = 1;
 
-
-    //const client = generateClient();
-
-    let initialBalance = 0;
-    //const users = client.graphql({ query: queries.listUsers });
-    //console.log(users);
+    
 
     const [output, setOutput] = useState("");
-    const [winnings, setWinnings] = useState(10);
+    const [winnings, setWinnings] = useState(0);
     const [ready, setReady] = useState(true);
-    const [slotstate, setslotstate] = useState(Array(cols).fill(0));
+    const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* symbols.length)));
 
+    const [initializedBal, setBalInited] = useState(false);
+    const [gottenID, setID] = useState("undef");
 
+    const {user} = useAuthenticator((context) => [context.user]);
+    const client = generateClient();
+    getPlayersBal();
+
+    function getPlayersBal(){
+        const users = client.graphql({ query: queries.listUsers });
+        users.then((value) => {
+            if(user != null && user.username != null)
+            value.data.listUsers.items.forEach((u) => {
+                if(u.Username === user.username){
+                    if(!initializedBal){
+                        setBalInited(true);
+                        setID(u.id);
+                        setWinnings(u.Balance);
+                    }
+                }
+            });
+        })
+    }
+
+    function pushBal(newBal){
+        console.log(gottenID);
+        if(gottenID === "undef")
+            return;
+        client.graphql({ query: mutations.updateUser, variables: { input: {
+            id: gottenID,
+            Balance: newBal
+        }}});
+    }
     
     function roll(){
         let localbuildstate = [];
@@ -77,7 +108,9 @@ const SlotslikeGame = () =>
                 if (i === cols - 1){ //this is the last slot?
                     clearInterval(interval);
                     setOutput(display(cols));
-                    scoring();
+                    let score = scoring()
+                    setWinnings(n => n + score);
+                    pushBal(winnings - costToPlay + score);
                     setReady(true);
                 }
             }, (i+1)*1000);
@@ -169,7 +202,8 @@ const SlotslikeGame = () =>
         if(ready){
             if (winnings > 0){
                 setReady(false);
-                setWinnings(winnings - 1);
+                setWinnings(n => (n - costToPlay));
+                if (false) pushBal();
                 roll();
                 reveal();
             } else {
@@ -179,11 +213,12 @@ const SlotslikeGame = () =>
     }
     return(
         <div>
-        <div><h1>Slots:</h1></div>
-        <button onClick={buttonOnClick}>Gamble!</button>
-        <div><p>{output}</p></div>
-        <div><p>{winnings}</p></div>
-    </div>
+            <div><h1>Slots:</h1></div>
+            <button onClick={buttonOnClick}>Gamble!</button>
+            <div><p>{output}</p></div>
+            <div><p>{winnings}</p></div>
+        </div>
     )
 }
+
 export default SlotslikeGame;
