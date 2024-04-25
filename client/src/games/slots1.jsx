@@ -7,12 +7,10 @@ const slots1 = () =>
 {
 
     return(
-        <div>
             <Authenticator.Provider>
                 <Navbar currentPage="slots"/>
                 <SlotslikeGame />
             </Authenticator.Provider>
-        </div>
     )
 }
 

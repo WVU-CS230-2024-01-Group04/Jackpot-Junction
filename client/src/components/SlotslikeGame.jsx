@@ -3,6 +3,7 @@ import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import "./slots.css";
 
 const SlotslikeGame = ({
     cols = 7, rows = 1,
@@ -31,8 +32,8 @@ const SlotslikeGame = ({
         }
         return score;
     },
-    costToPlay = 1,
-    revealPeriod = 1000
+    costToPlay = 5,
+    revealPeriod = 250
 }) =>
 {
     //default parameters
@@ -66,7 +67,7 @@ const SlotslikeGame = ({
     let revealPeriod = 1000;*/
     
 
-    const [output, setOutput] = useState("");
+    const [output, setOutput] = useState("🎰");
     const [winnings, setWinnings] = useState(0);
     const [ready, setReady] = useState(true);
     const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* reel.length)));
@@ -118,14 +119,15 @@ const SlotslikeGame = ({
             localbuildstate[i] = Math.floor(Math.random() * reel.length);
         }
         setslotstate(localbuildstate);
+        return localbuildstate;
     }
     
-    function display(showslots){
+    function display(showslots, state=slotstate){
         let str = "";
         for(let row = 0; row < rows; row++){
             for(let col = 0; col < cols; col++){
                 str += symbols[
-                    (col < showslots) ? reel[(slotstate[col] + row) % reel.length] : Math.floor(Math.random() * symbols.length)
+                    (col < showslots) ? reel[(state[col] + row) % reel.length] : Math.floor(Math.random() * symbols.length)
                 ];
                 if(col !== cols-1)
                     str += " ";
@@ -172,11 +174,12 @@ const SlotslikeGame = ({
             }
         }
     }
+
     return(
-        <div>
+        <div className="slotsgame">
             <div><h1>Slots:</h1></div>
-            <button onClick={buttonOnClick}>Gamble!</button>
-            <div><p>{output}</p></div>
+            <button onClick={buttonOnClick} className="slotsbutton">Gamble!</button>
+            <div className="slotsoutput"><p>{output}</p></div>
             <div><p>{winnings}</p></div>
         </div>
     )
@@ -232,36 +235,46 @@ const SlotsScoring = {
         return v;
     },
     
-    diagonalDown: (slotstate, reel, n) => {
+    diagonalDown: (slotstate, n) => {
         let cols = slotstate.length;
-        for(let start = 0; start<cols-n; start++){
-            let val = slotstate[start][0];
-            let count = 0;
-            for(let i = 0; i < n; i++){
-                if(slotstate[start + i][0] === (val + i) % reel.length){
-                    count++;
+        let rows = slotstate[0].length;
+        if (n > cols || n > rows)
+            return false;
+        for(let startrow = 0; startrow < rows-n; startrow++){
+            for(let start = 0; start<cols-n; start++){
+                let val = slotstate[start][startrow];
+                let count = 0;
+                for(let i = 0; i < n; i++){
+                    if(slotstate[start + i][startrow + i] === val){
+                        count++;
+                    }
                 }
+                if(count === n) return true;
             }
-            if(count === n) return true;
         }
         return false;
     },
-    diagonalUp: (slotstate, reel, n) => {
+    diagonalUp: (slotstate, n) => {
         let cols = slotstate.length;
-        for(let start = 0; start<cols-n; start++){
-            let val = slotstate[start][0];
-            let count = 0;
-            for(let i = 0; i < n; i++){
-                if(slotstate[start + i][0] === (val - i) % reel.length){
-                    count++;
+        let rows = slotstate[0].length;
+        if (n > cols || n > rows)
+            return false;
+        for(let startrow = 0; startrow < rows - n; startrow++){
+            for(let start = 0; start<cols-n; start++){
+                let val = slotstate[start][startrow];
+                let count = 0;
+                for(let i = 0; i < n; i++){
+                    if(slotstate[start + i][startrow] === val){
+                        count++;
+                    }
                 }
+                if(count === n) return true;
             }
-            if(count === n) return true;
         }
         return false;
     },
-    diagonal: (state, reel, n) =>{
-        return SlotsScoring.diagonalDown(state, reel, n) || SlotsScoring.diagonalUp(state, reel, n);
+    diagonal: (state, n) =>{
+        return SlotsScoring.diagonalDown(state, n) || SlotsScoring.diagonalUp(state, n);
     }
 }
 

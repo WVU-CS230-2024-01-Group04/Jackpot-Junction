@@ -1,0 +1,29 @@
+.slotsgame {
+    background-color:rgb(18, 22, 47);
+    color:rgb(240,248,255);
+    text-align: center;
+    font-family:cursive;
+    font-size:24px;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:center;
+
+    height: 100vh;
+}
+
+.slotsoutput {
+    text-align:justify;
+    font-size:36px;
+}
+.slotsbutton {
+    background-color:black;
+    color: rgb(240, 248,255);
+    padding: 10px 30px;
+    border-radius: 15px;
+    box-shadow: 3px 5px grey;
+}
+.slotsbutton:hover {
+    box-shadow: -3px -5px rgb(64,64,64);
+}
