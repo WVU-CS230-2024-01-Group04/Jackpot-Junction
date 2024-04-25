@@ -7,9 +7,11 @@ import MainPage from './pages/MainPage';
 import UserPage from './pages/UserPage';
 import SlotsPage from './pages/SlotsPage';
 import SlotsRules from './pages/SlotsRules';
+import Slots2Rules from './pages/Slots2Rules';
 import BlackjackPage from './pages/BlackjackPage';
 import CardsPage from './pages/CardsPage';
 import Slots1 from './games/slots1';
+import Slots2 from './games/slots2';
 import Blackjack1 from './games/blackjack1';
 import ChanceGamesPage from './pages/ChanceGamesPage'
 import Roulette from './games/roulette'
@@ -41,6 +43,8 @@ function App() {
           
           <Route path="/slotsrules" element={<SlotsRules/>}/>
           <Route path="/slots1" element={<Slots1/>}/>
+          <Route path="/slots2rules" element={<Slots2Rules/>}/>
+          <Route path="/slots2" element={<Slots2/>}/>
 
           <Route path="/blackjack1" element={<Blackjack1/>}/>
 

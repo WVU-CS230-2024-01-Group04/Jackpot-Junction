@@ -36,37 +36,6 @@ const SlotslikeGame = ({
     revealPeriod = 250
 }) =>
 {
-    //default parameters
-    /*let cols = 7; let rows = 1;
-        let reel =    [  0,    1,     2,    3,     4,    5,     6,    7,     8,    9,    10,   11];
-        let symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"];
-        let scoring = (state) =>
-        {
-            let score = 0;
-            //           🍌,🍎, 🍒,  🎰, 🍏,🍊,🍋,🍉,🍇,🍓,🍍,💰
-            let worth = [50, 10, 100, 500, 10, 25, 0, 0, 0, 25,  50, 200];
-            let bonus = [ 0,  0,   0,   0,  0,  0, 0, 0, 0, 75, 100,   0];
-            for(let s = 0; s < symbols.length; s++){
-                if(SlotsScoring.broken_threes(state,s)){
-                    score += worth[s] * 2 + bonus[s];
-                } else if(SlotsScoring.lineup_sp(state, 7, s)){
-                    score += worth[s] * 5 + bonus[s];
-                } else if(SlotsScoring.lineup_sp(state, 6, s)){
-                    score += worth[s] * 4 + bonus[s];
-                } else if(SlotsScoring.lineup_sp(state, 5, s)){
-                    score += worth[s] * 3 + bonus[s];
-                } else if(SlotsScoring.lineup_sp(state, 4, s)){
-                    score += worth[s] * 2 + bonus[s];
-                } else if(SlotsScoring.lineup_sp(state, 3, s)){
-                    score += worth[s] + bonus[s];
-                }
-            }
-            return score;
-        }
-    let costToPlay = 1;
-    let revealPeriod = 1000;*/
-    
-
     const [output, setOutput] = useState("🎰");
     const [winnings, setWinnings] = useState(0);
     const [ready, setReady] = useState(true);
@@ -93,7 +62,7 @@ const SlotslikeGame = ({
             });
         })
     }
-
+    
     function pushBal(newBal){
         if(gottenID === "undef")
             return;
@@ -138,7 +107,7 @@ const SlotslikeGame = ({
         return str;
     }
     
-    function reveal(){
+    function reveal(state=slotstate){
         let showslot = 0;
         let interval;
         for(let i = 0; i < cols; i++){
@@ -148,7 +117,7 @@ const SlotslikeGame = ({
                 if (i === cols - 1){ //this is the last slot?
                     clearInterval(interval);
                     setOutput(display(cols));
-                    let score = scoring(compileStateToSymbols(slotstate));
+                    let score = scoring(compileStateToSymbols(state));
                     setWinnings(n => n + score);
                     pushBal(winnings - costToPlay + score);
                     setReady(true);
@@ -157,13 +126,13 @@ const SlotslikeGame = ({
         }
     
         interval = setInterval(function(event){
-            setOutput(display(showslot));
+            setOutput(display(showslot, state));
         }, 10)
     }
 
     function buttonOnClick(){
         if(ready){
-            if (winnings > 0){
+            if (winnings >= costToPlay){
                 setReady(false);
                 setWinnings(n => (n - costToPlay));
                 if (false) pushBal();
@@ -279,5 +248,4 @@ const SlotsScoring = {
 }
 
 
-export default {SlotslikeGame, SlotsScoring};
-export {SlotslikeGame};
+export {SlotslikeGame, SlotsScoring};

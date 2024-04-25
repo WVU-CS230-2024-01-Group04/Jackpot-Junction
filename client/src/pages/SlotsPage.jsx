@@ -13,6 +13,7 @@ const SlotsPage = () => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '25px'}}>
                 <GameCard image={slotsimg1} link="/SlotsRules" title="Slots 1" description="The first slots game ever in existence its crazy."/>
+                <GameCard image={slotsimg1} link="/Slots2Rules" title="Slots 2" description="The sequel we've all been waiting for"/>
             </div>
         </div>
     )
