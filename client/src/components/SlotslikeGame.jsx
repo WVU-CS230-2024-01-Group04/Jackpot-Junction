@@ -38,6 +38,7 @@ const SlotslikeGame = ({
 {
     const [output, setOutput] = useState("🎰");
     const [winnings, setWinnings] = useState(0);
+    const [wincount, setWincount] = useState(0);
     const [ready, setReady] = useState(true);
     const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* reel.length)));
 
@@ -57,18 +58,20 @@ const SlotslikeGame = ({
                         setBalInited(true);
                         setID(u.id);
                         setWinnings(u.Balance);
+                        setWincount(u.Wins);
                     }
                 }
             });
         })
     }
-    
-    function pushBal(newBal){
+
+    function pushBal(newBal, newWins = wincount){
         if(gottenID === "undef")
             return;
         client.graphql({ query: mutations.updateUser, variables: { input: {
             id: gottenID,
-            Balance: newBal
+            Balance: newBal,
+            Wins: newWins
         }}});
     }
 
@@ -119,7 +122,7 @@ const SlotslikeGame = ({
                     setOutput(display(cols));
                     let score = scoring(compileStateToSymbols(state));
                     setWinnings(n => n + score);
-                    pushBal(winnings - costToPlay + score);
+                    pushBal(winnings - costToPlay + score, wincount+1);
                     setReady(true);
                 }
             }, (i+1)*revealPeriod);
