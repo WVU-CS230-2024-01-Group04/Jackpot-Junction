@@ -48,6 +48,8 @@ const SlotslikeGame = ({
     const {user} = useAuthenticator((context) => [context.user]);
     const client = generateClient();
     getPlayersBal();
+
+    // get the players info to init states
     function getPlayersBal(){
         const users = client.graphql({ query: queries.listUsers });
         users.then((value) => {
@@ -65,6 +67,7 @@ const SlotslikeGame = ({
         })
     }
 
+    // update the player's info in the database
     function pushBal(newBal, newWins = wincount){
         if(gottenID === "undef")
             return;
@@ -75,6 +78,7 @@ const SlotslikeGame = ({
         }}});
     }
 
+    //turn an array of slot state numbers into an array of numbers representing the symbols
     function compileStateToSymbols(state){
         return state.map((colRot) => {
             let a = [];
@@ -85,6 +89,7 @@ const SlotslikeGame = ({
         })
     }
     
+    //generate a new random state for the slot machine
     function roll(){
         let localbuildstate = [];
         for(let i = 0; i < cols; i++){
@@ -94,6 +99,8 @@ const SlotslikeGame = ({
         return localbuildstate;
     }
     
+    //show "showslots" number of slots, as passed in by state
+    //all slots past showslots will be randomized
     function display(showslots, state=slotstate){
         let str = "";
         for(let row = 0; row < rows; row++){
@@ -110,6 +117,7 @@ const SlotslikeGame = ({
         return str;
     }
     
+    //reveal each slot one by one for dramatic function
     function reveal(state=slotstate){
         let showslot = 0;
         let interval;
@@ -129,10 +137,12 @@ const SlotslikeGame = ({
         }
     
         interval = setInterval(function(event){
+            //shuffle very quickly to give the illusion of spinning
             setOutput(display(showslot, state));
         }, 10)
     }
 
+    //when the gamble button is pushed
     function buttonOnClick(){
         if(ready){
             if (winnings >= costToPlay){
