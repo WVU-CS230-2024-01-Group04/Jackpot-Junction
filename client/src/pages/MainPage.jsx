@@ -31,6 +31,7 @@ const MainPage = () => {
                             <h2>Quick Stats</h2>
                             <div>
                                 <p>User Stats</p>
+                                
                             </div>
                             <div className="social">
                                 { /* get info from social page, basically a quick guide to friends, make it scroll down */}

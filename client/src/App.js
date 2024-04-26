@@ -4,7 +4,7 @@ import FrontPage from './pages/FrontPage';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import MainPage from './pages/MainPage';
-import UserPage from './pages/UserPage';
+import UserPageAuthenticator from './pages/UserPageAuthenticator';
 import SlotsPage from './pages/SlotsPage';
 import SlotsRules from './pages/SlotsRules';
 import Slots2Rules from './pages/Slots2Rules';
@@ -14,7 +14,7 @@ import Slots1 from './games/slots1';
 import Slots2 from './games/slots2';
 import Blackjack1 from './games/blackjack1';
 import ChanceGamesPage from './pages/ChanceGamesPage'
-import Roulette from './games/roulette'
+import RouletteGame from './games/roulettegame'
 import RouletteRulesPage from './pages/RouletteRulesPage'
 
 import { Amplify } from 'aws-amplify';
@@ -35,7 +35,7 @@ function App() {
           <Route path="/login" element={<LogIn/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/main" element={<MainPage/>}/>
-          <Route path="/userpage" element={<UserPage/>}/>
+          <Route path="/userpage" element={<UserPageAuthenticator/>}/>
           <Route path="/slots" element={<SlotsPage/>}/>
           <Route path="/blackjack" element={<BlackjackPage/>}/>
           <Route path="/cards" element={<CardsPage/>}/>
@@ -49,7 +49,7 @@ function App() {
           <Route path="/blackjack1" element={<Blackjack1/>}/>
 
           <Route path="/rouletterules" element={<RouletteRulesPage/>}/>
-          <Route path="/roulette" element={<Roulette/>}/>
+          <Route path="/roulette" element={<RouletteGame/>}/>
         </Routes>      
       </BrowserRouter>
     </div>

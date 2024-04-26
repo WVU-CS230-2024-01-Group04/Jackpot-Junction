@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import kermitImage from "../images/kermit.webp";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Authenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { generateClient } from 'aws-amplify/api';
+import * as queries from '../graphql/queries';
+import Popup from '../components/popup'
+import * as mutations from '../graphql/mutations';
 
 
 const StatsPage = () => {
@@ -31,12 +35,66 @@ const StatsPage = () => {
         averageWinRate: 60
     };
 
-    return (
-        <Authenticator>
- {({ signOut,user }) => (
-                    
+    //user data stuff
+    const [initializedBal, setBalInited] = useState(false);
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
+    const client = generateClient();
+    const [money, setMoney] = useState(0);
+    const [username, setUsername] = useState("");
+    const [gottenID, setID] = useState("undef");
 
-        <div>
+    // (Oskar Engen) function to get players balance
+    getPlayersBal();
+    function getPlayersBal(){
+        const users = client.graphql({ query: queries.listUsers });
+        users.then((value) => {
+            console.log(value.data.listUsers.items);
+            if(user != null && user.username != null)
+            value.data.listUsers.items.forEach((u) => {
+                if(u.Username === user.username){
+                    if(!initializedBal){
+                        setBalInited(true);
+                        setMoney(u.Balance);
+                        setID(u.id);
+                        setUsername(u.Username);
+                    }
+                }
+            });
+        })
+    }
+
+    // (Oskar Engen) function to push an updated balance to the user
+    function pushBal(newBal){
+        if(gottenID === "undef")
+            return;
+        client.graphql({ query: mutations.updateUser, variables: { input: {
+            id: gottenID,
+            Balance: newBal
+        }}});
+    }
+
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+    const openPopup = () => 
+    {
+        setIsPopupOpen(true);
+        console.log("guggua");
+    }
+
+    const closePopup = () => 
+    {
+      setIsPopupOpen(false);
+    }
+
+    const submitPopup = () =>
+    {
+        setMoney(money + 1000);
+        pushBal(money + 1000);
+        setIsPopupOpen(false);
+    }
+
+    return (
+    <div>
         <Navbar currentPage="userpage" />
 
         <div className="container mt-4">
@@ -45,8 +103,9 @@ const StatsPage = () => {
                     <div className="card text-center">
                         <div className="card-body">
                             <img src={kermitImage} alt="Profile" className="img-fluid rounded-circle mb-3" style={{ width: '150px' }} />
-                            <h4>Username: {user.username}</h4>
-                            <button className="btn btn-primary">Report User</button>
+                            <h4>Username: {username}</h4>
+                            <h4>Balance: {money}</h4>
+                            <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
                             <button onClick={signOut}>Sign out</button>
                         </div>
@@ -86,14 +145,8 @@ const StatsPage = () => {
                 </div>
             </div>
         </div>
+        <Popup isOpen={isPopupOpen} onClose={closePopup} onSubmit={submitPopup}/>
     </div>
-                )}
-
-
-
-
-        </Authenticator>
-
     );
 };
 
