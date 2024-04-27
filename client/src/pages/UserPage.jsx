@@ -114,10 +114,13 @@ const StatsPage = () => {
                             <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
                             <button onClick={signOut}>Sign out</button>
+                            <AccountSettings.DeleteUser onSuccess={handleSuccess} />
+
 
                         </div>
                         <AccountSettings.ChangePassword onSuccess={handleSuccess}/>
-            
+
+
                     </div>
                 </div>
                 <div className="col-md-8">
