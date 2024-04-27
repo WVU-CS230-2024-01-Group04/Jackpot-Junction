@@ -3,7 +3,6 @@ import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import Navbar from "../components/Navbar";
 import "./slots.css";
 
 const SlotslikeGame = ({
@@ -44,36 +43,32 @@ const SlotslikeGame = ({
     const [slotstate, setslotstate] = useState(Array(cols).fill(0).map(() => Math.floor(Math.random()* reel.length)));
 
     const [initializedBal, setBalInited] = useState(false);
-    const [gottenID, setID] = useState("undef");
 
-    const {user} = useAuthenticator((context) => [context.user]);
     const client = generateClient();
-    getPlayersBal();
+    const {user} = useAuthenticator((context) => [context.user]);
+    getPlayersBal(user);
 
     // get the players info to init states
-    function getPlayersBal(){
-        const users = client.graphql({ query: queries.listUsers });
-        users.then((value) => {
-            if(user != null && user.username != null)
-            value.data.listUsers.items.forEach((u) => {
-                if(u.Username === user.username){
-                    if(!initializedBal){
-                        setBalInited(true);
-                        setID(u.id);
-                        setWinnings(u.Balance);
-                        setWincount(u.TotalSpinsSlots);
-                    }
+    function getPlayersBal(user){
+        if(user != null && user.username != null){
+            const getUser = client.graphql({ query: queries.getUser, variables: { id: user.username }});
+            getUser.then((value) => {
+                if(!initializedBal){
+                    console.log(value.data.getUser);
+                    setBalInited(true);
+                    setWinnings(value.data.getUser.Balance);
+                    setWincount(value.data.getUser.TotalSpinsSlots);
                 }
-            });
-        })
+            })
+        }
     }
 
     // update the player's info in the database
     function pushBal(newBal, newWins = wincount){
-        if(gottenID === "undef")
+        if(!initializedBal)//gottenID === "undef")
             return;
         client.graphql({ query: mutations.updateUser, variables: { input: {
-            id: gottenID,
+            id: user.username,//gottenID,
             Balance: newBal,
             TotalSpinsSlots: newWins
         }}});
