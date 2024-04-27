@@ -60,7 +60,7 @@ const SlotslikeGame = ({
                         setBalInited(true);
                         setID(u.id);
                         setWinnings(u.Balance);
-                        setWincount(u.Wins);
+                        setWincount(u.TotalSpinsSlots);
                     }
                 }
             });
@@ -74,7 +74,7 @@ const SlotslikeGame = ({
         client.graphql({ query: mutations.updateUser, variables: { input: {
             id: gottenID,
             Balance: newBal,
-            Wins: newWins
+            TotalSpinsSlots: newWins
         }}});
     }
 
@@ -130,6 +130,7 @@ const SlotslikeGame = ({
                     setOutput(display(cols));
                     let score = scoring(compileStateToSymbols(state));
                     setWinnings(n => n + score);
+                    setWincount(wincount + 1);
                     pushBal(winnings - costToPlay + score, wincount+1);
                     setReady(true);
                 }
