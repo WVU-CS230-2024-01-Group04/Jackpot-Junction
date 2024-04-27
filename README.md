@@ -72,7 +72,7 @@ To get started with playing Blackjack, follow these steps:
 
 1. Clone the repository:
 
-   git clone https://github.com/yourusername/blackjack-game.git
+   git clone https://github.com/WVU-CS230-2024-01-Group04/Jackpot-Junction.git
 
 2. Navigate into the project directory:
 
