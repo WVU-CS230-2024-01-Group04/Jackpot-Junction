@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import kermitImage from "../images/kermit.webp";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAuthenticator, AccountSettings } from '@aws-amplify/ui-react';
+import { useAuthenticator, AccountSettings , Authenticator} from '@aws-amplify/ui-react';
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import Popup from '../components/popup'
 
+
 import * as mutations from '../graphql/mutations';
+
+
+import { deleteUser } from '../graphql/mutations';
+
 
 
 const StatsPage = () => {
 
+   
     //fake data until database is up 
     const slotsStats = {
         gamesPlayed: 20,
@@ -99,10 +105,26 @@ const StatsPage = () => {
         alert('password is successfully changed!')
       }
 
+    
+      //delete user also in database as well
+      const handleDelete = async () => {
+       await client.graphql({
+            query: deleteUser,
+            variables: {
+                input: {
+                    id: user.username
+                }
+            }
+        });
+       
+      };  
+      
+      
+
     return (
     <div>
         <Navbar currentPage="userpage" />
-
+        
         <div className="container mt-4">
             <div className="row">
                 <div className="col-md-4">
@@ -114,7 +136,8 @@ const StatsPage = () => {
                             <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
                             <button onClick={signOut}>Sign out</button>
-                            <AccountSettings.DeleteUser onSuccess={handleSuccess} />
+                            <AccountSettings.DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
+
 
 
                         </div>
