@@ -7,8 +7,11 @@ export const getUser = /* GraphQL */ `
       id
       Username
       Balance
-      Wins
-      Losses
+      WinsBlackJack
+      LossesBlackJack
+      GamesPlayedBlackjack
+      TotalSpinsSlots
+      TotalSpinsRoullette
       createdAt
       updatedAt
       __typename
@@ -26,8 +29,11 @@ export const listUsers = /* GraphQL */ `
         id
         Username
         Balance
-        Wins
-        Losses
+        WinsBlackJack
+        LossesBlackJack
+        GamesPlayedBlackjack
+        TotalSpinsSlots
+        TotalSpinsRoullette
         createdAt
         updatedAt
         __typename

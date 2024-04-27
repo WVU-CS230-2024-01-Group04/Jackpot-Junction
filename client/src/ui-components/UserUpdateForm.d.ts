@@ -24,22 +24,31 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type UserUpdateFormInputValues = {
     Username?: string;
     Balance?: number;
-    Wins?: number;
-    Losses?: number;
+    WinsBlackJack?: number;
+    LossesBlackJack?: number;
+    GamesPlayedBlackjack?: number;
+    TotalSpinsSlots?: number;
+    TotalSpinsRoullette?: number;
 };
 export declare type UserUpdateFormValidationValues = {
     Username?: ValidationFunction<string>;
     Balance?: ValidationFunction<number>;
-    Wins?: ValidationFunction<number>;
-    Losses?: ValidationFunction<number>;
+    WinsBlackJack?: ValidationFunction<number>;
+    LossesBlackJack?: ValidationFunction<number>;
+    GamesPlayedBlackjack?: ValidationFunction<number>;
+    TotalSpinsSlots?: ValidationFunction<number>;
+    TotalSpinsRoullette?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserUpdateFormOverridesProps = {
     UserUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     Username?: PrimitiveOverrideProps<TextFieldProps>;
     Balance?: PrimitiveOverrideProps<TextFieldProps>;
-    Wins?: PrimitiveOverrideProps<TextFieldProps>;
-    Losses?: PrimitiveOverrideProps<TextFieldProps>;
+    WinsBlackJack?: PrimitiveOverrideProps<TextFieldProps>;
+    LossesBlackJack?: PrimitiveOverrideProps<TextFieldProps>;
+    GamesPlayedBlackjack?: PrimitiveOverrideProps<TextFieldProps>;
+    TotalSpinsSlots?: PrimitiveOverrideProps<TextFieldProps>;
+    TotalSpinsRoullette?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UserUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserUpdateFormOverridesProps | undefined | null;

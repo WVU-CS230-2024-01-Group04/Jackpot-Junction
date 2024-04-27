@@ -7,8 +7,11 @@ export const onCreateUser = /* GraphQL */ `
       id
       Username
       Balance
-      Wins
-      Losses
+      WinsBlackJack
+      LossesBlackJack
+      GamesPlayedBlackjack
+      TotalSpinsSlots
+      TotalSpinsRoullette
       createdAt
       updatedAt
       __typename
@@ -21,8 +24,11 @@ export const onUpdateUser = /* GraphQL */ `
       id
       Username
       Balance
-      Wins
-      Losses
+      WinsBlackJack
+      LossesBlackJack
+      GamesPlayedBlackjack
+      TotalSpinsSlots
+      TotalSpinsRoullette
       createdAt
       updatedAt
       __typename
@@ -35,8 +41,11 @@ export const onDeleteUser = /* GraphQL */ `
       id
       Username
       Balance
-      Wins
-      Losses
+      WinsBlackJack
+      LossesBlackJack
+      GamesPlayedBlackjack
+      TotalSpinsSlots
+      TotalSpinsRoullette
       createdAt
       updatedAt
       __typename

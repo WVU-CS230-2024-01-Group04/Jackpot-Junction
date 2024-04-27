@@ -2,7 +2,10 @@ type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   Username: String!
   Balance: Int
-  Wins: Int
-  Losses: Int
+  WinsBlackJack: Int
+  LossesBlackJack: Int
+  GamesPlayedBlackjack: Int
+  TotalSpinsSlots: Int
+  TotalSpinsRoullette: Int
 }
  

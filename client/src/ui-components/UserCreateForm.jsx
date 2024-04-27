@@ -25,26 +25,48 @@ export default function UserCreateForm(props) {
   const initialValues = {
     Username: "",
     Balance: "",
-    Wins: "",
-    Losses: "",
+    WinsBlackJack: "",
+    LossesBlackJack: "",
+    GamesPlayedBlackjack: "",
+    TotalSpinsSlots: "",
+    TotalSpinsRoullette: "",
   };
   const [Username, setUsername] = React.useState(initialValues.Username);
   const [Balance, setBalance] = React.useState(initialValues.Balance);
-  const [Wins, setWins] = React.useState(initialValues.Wins);
-  const [Losses, setLosses] = React.useState(initialValues.Losses);
+  const [WinsBlackJack, setWinsBlackJack] = React.useState(
+    initialValues.WinsBlackJack
+  );
+  const [LossesBlackJack, setLossesBlackJack] = React.useState(
+    initialValues.LossesBlackJack
+  );
+  const [GamesPlayedBlackjack, setGamesPlayedBlackjack] = React.useState(
+    initialValues.GamesPlayedBlackjack
+  );
+  const [TotalSpinsSlots, setTotalSpinsSlots] = React.useState(
+    initialValues.TotalSpinsSlots
+  );
+  const [TotalSpinsRoullette, setTotalSpinsRoullette] = React.useState(
+    initialValues.TotalSpinsRoullette
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setUsername(initialValues.Username);
     setBalance(initialValues.Balance);
-    setWins(initialValues.Wins);
-    setLosses(initialValues.Losses);
+    setWinsBlackJack(initialValues.WinsBlackJack);
+    setLossesBlackJack(initialValues.LossesBlackJack);
+    setGamesPlayedBlackjack(initialValues.GamesPlayedBlackjack);
+    setTotalSpinsSlots(initialValues.TotalSpinsSlots);
+    setTotalSpinsRoullette(initialValues.TotalSpinsRoullette);
     setErrors({});
   };
   const validations = {
     Username: [{ type: "Required" }],
     Balance: [],
-    Wins: [],
-    Losses: [],
+    WinsBlackJack: [],
+    LossesBlackJack: [],
+    GamesPlayedBlackjack: [],
+    TotalSpinsSlots: [],
+    TotalSpinsRoullette: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -74,8 +96,11 @@ export default function UserCreateForm(props) {
         let modelFields = {
           Username,
           Balance,
-          Wins,
-          Losses,
+          WinsBlackJack,
+          LossesBlackJack,
+          GamesPlayedBlackjack,
+          TotalSpinsSlots,
+          TotalSpinsRoullette,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -140,8 +165,11 @@ export default function UserCreateForm(props) {
             const modelFields = {
               Username: value,
               Balance,
-              Wins,
-              Losses,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
             };
             const result = onChange(modelFields);
             value = result?.Username ?? value;
@@ -171,8 +199,11 @@ export default function UserCreateForm(props) {
             const modelFields = {
               Username,
               Balance: value,
-              Wins,
-              Losses,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
             };
             const result = onChange(modelFields);
             value = result?.Balance ?? value;
@@ -188,12 +219,12 @@ export default function UserCreateForm(props) {
         {...getOverrideProps(overrides, "Balance")}
       ></TextField>
       <TextField
-        label="Wins"
+        label="Wins black jack"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={Wins}
+        value={WinsBlackJack}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
@@ -202,29 +233,32 @@ export default function UserCreateForm(props) {
             const modelFields = {
               Username,
               Balance,
-              Wins: value,
-              Losses,
+              WinsBlackJack: value,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
             };
             const result = onChange(modelFields);
-            value = result?.Wins ?? value;
+            value = result?.WinsBlackJack ?? value;
           }
-          if (errors.Wins?.hasError) {
-            runValidationTasks("Wins", value);
+          if (errors.WinsBlackJack?.hasError) {
+            runValidationTasks("WinsBlackJack", value);
           }
-          setWins(value);
+          setWinsBlackJack(value);
         }}
-        onBlur={() => runValidationTasks("Wins", Wins)}
-        errorMessage={errors.Wins?.errorMessage}
-        hasError={errors.Wins?.hasError}
-        {...getOverrideProps(overrides, "Wins")}
+        onBlur={() => runValidationTasks("WinsBlackJack", WinsBlackJack)}
+        errorMessage={errors.WinsBlackJack?.errorMessage}
+        hasError={errors.WinsBlackJack?.hasError}
+        {...getOverrideProps(overrides, "WinsBlackJack")}
       ></TextField>
       <TextField
-        label="Losses"
+        label="Losses black jack"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={Losses}
+        value={LossesBlackJack}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
@@ -233,21 +267,130 @@ export default function UserCreateForm(props) {
             const modelFields = {
               Username,
               Balance,
-              Wins,
-              Losses: value,
+              WinsBlackJack,
+              LossesBlackJack: value,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
             };
             const result = onChange(modelFields);
-            value = result?.Losses ?? value;
+            value = result?.LossesBlackJack ?? value;
           }
-          if (errors.Losses?.hasError) {
-            runValidationTasks("Losses", value);
+          if (errors.LossesBlackJack?.hasError) {
+            runValidationTasks("LossesBlackJack", value);
           }
-          setLosses(value);
+          setLossesBlackJack(value);
         }}
-        onBlur={() => runValidationTasks("Losses", Losses)}
-        errorMessage={errors.Losses?.errorMessage}
-        hasError={errors.Losses?.hasError}
-        {...getOverrideProps(overrides, "Losses")}
+        onBlur={() => runValidationTasks("LossesBlackJack", LossesBlackJack)}
+        errorMessage={errors.LossesBlackJack?.errorMessage}
+        hasError={errors.LossesBlackJack?.hasError}
+        {...getOverrideProps(overrides, "LossesBlackJack")}
+      ></TextField>
+      <TextField
+        label="Games played blackjack"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={GamesPlayedBlackjack}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              Username,
+              Balance,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack: value,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
+            };
+            const result = onChange(modelFields);
+            value = result?.GamesPlayedBlackjack ?? value;
+          }
+          if (errors.GamesPlayedBlackjack?.hasError) {
+            runValidationTasks("GamesPlayedBlackjack", value);
+          }
+          setGamesPlayedBlackjack(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("GamesPlayedBlackjack", GamesPlayedBlackjack)
+        }
+        errorMessage={errors.GamesPlayedBlackjack?.errorMessage}
+        hasError={errors.GamesPlayedBlackjack?.hasError}
+        {...getOverrideProps(overrides, "GamesPlayedBlackjack")}
+      ></TextField>
+      <TextField
+        label="Total spins slots"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={TotalSpinsSlots}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              Username,
+              Balance,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots: value,
+              TotalSpinsRoullette,
+            };
+            const result = onChange(modelFields);
+            value = result?.TotalSpinsSlots ?? value;
+          }
+          if (errors.TotalSpinsSlots?.hasError) {
+            runValidationTasks("TotalSpinsSlots", value);
+          }
+          setTotalSpinsSlots(value);
+        }}
+        onBlur={() => runValidationTasks("TotalSpinsSlots", TotalSpinsSlots)}
+        errorMessage={errors.TotalSpinsSlots?.errorMessage}
+        hasError={errors.TotalSpinsSlots?.hasError}
+        {...getOverrideProps(overrides, "TotalSpinsSlots")}
+      ></TextField>
+      <TextField
+        label="Total spins roullette"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={TotalSpinsRoullette}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              Username,
+              Balance,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.TotalSpinsRoullette ?? value;
+          }
+          if (errors.TotalSpinsRoullette?.hasError) {
+            runValidationTasks("TotalSpinsRoullette", value);
+          }
+          setTotalSpinsRoullette(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("TotalSpinsRoullette", TotalSpinsRoullette)
+        }
+        errorMessage={errors.TotalSpinsRoullette?.errorMessage}
+        hasError={errors.TotalSpinsRoullette?.hasError}
+        {...getOverrideProps(overrides, "TotalSpinsRoullette")}
       ></TextField>
       <Flex
         justifyContent="space-between"
