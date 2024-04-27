@@ -7,7 +7,7 @@ import "../styles/MainPage.css"
 const SlotsRules = () => {
     return(
         <div>
-            <Navbar currentPage="slots"/>
+            <Navbar currentPage="main"/>
 
             <h1>Slots</h1>
             <h3>Here are the rules for slots:</h3>

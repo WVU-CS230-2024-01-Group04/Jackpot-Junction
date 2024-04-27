@@ -6,7 +6,7 @@ import GameCard from "../components/GameCard"
 const SlotsPage = () => {
     return(
         <div>
-            <Navbar currentPage="slots"/>
+            <Navbar currentPage="main"/>
 
             <h1>Slots Page</h1>
             <h3>Here is where all slots-type games on the site are.</h3>

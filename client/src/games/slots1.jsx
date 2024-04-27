@@ -8,7 +8,7 @@ const slots1 = () =>
 
     return(
             <Authenticator.Provider>
-                <Navbar currentPage="slots"/>
+                <Navbar currentPage="main"/>
                 <SlotslikeGame />
             </Authenticator.Provider>
     )

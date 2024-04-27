@@ -3,6 +3,7 @@ import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import Navbar from "../components/Navbar";
 import "./slots.css";
 
 const SlotslikeGame = ({

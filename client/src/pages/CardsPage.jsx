@@ -6,7 +6,7 @@ import GameCard from "../components/GameCard"
 const CardsPage = () => {
     return(
         <div>
-            <Navbar currentPage="cards"/>
+            <Navbar currentPage="main"/>
 
             <h1>Cards Page</h1>
             <h3>Here is where all cards-type games on the site are.</h3>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../components/Blackjack.module.css';
+import Navbar from "../components/Navbar";
 
 // Imports card images for Clubs
 import twoOfClubs from '../images/blackjackCards1/2_of_clubs.png';
@@ -264,6 +265,8 @@ const Blackjack = () => {
     };
 
     return (
+        <>
+        <Navbar currentPage="main"/>
         <div className={styles.blackjack}>
             <h1 className={styles.title}>Blackjack Game</h1>
             <div className={styles.tokens}>Tokens: {tokens}</div>
@@ -320,6 +323,7 @@ const Blackjack = () => {
             </button>
             {message && <div className={styles.message}>{message}</div>}
         </div>
+        </>
     );
 };
 

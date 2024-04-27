@@ -48,13 +48,19 @@ const Navbar = ({currentPage}) =>
             )}
             {currentPage === 'userpage' && (
               <>
-                <li>
-                  <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/main">Main</Link>
-                </li>
-              </>
+              <li>
+                <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/slots">Slot Games</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/cards">Card Games</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/chance">Chance Games</Link>
+              </li>
+            </>
             )}
             {currentPage === 'slots' && (
               <>

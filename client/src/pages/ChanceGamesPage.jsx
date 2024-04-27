@@ -6,7 +6,7 @@ import blackjackImg1 from "../images/roulette.jpg"
 const CardsPage = () => {
     return(
         <div>
-            <Navbar currentPage="cards"/>
+            <Navbar currentPage="main"/>
 
             <h1>Chance Games Page</h1>
             <h3>Here is where all chance type games on the site are.</h3>

@@ -142,7 +142,7 @@ const Roulette = () => {
 
     return(
     <div>
-        <Navbar currentPage={"slots"}/>
+        <Navbar currentPage={"main"}/>
 
 
             {/* This is the Roulette Game Code */}

@@ -6,7 +6,7 @@ import GameCard from "../components/GameCard"
 const BlackjackPage = () => {
     return(
         <div>
-            <Navbar currentPage="blackjack"/>
+            <Navbar currentPage="main"/>
 
             <h1>Blackjack</h1>
             <h3>Here is where you can find black jack.</h3>
