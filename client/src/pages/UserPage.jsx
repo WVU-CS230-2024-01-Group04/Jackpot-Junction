@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import kermitImage from "../images/kermit.webp";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useAuthenticator, AccountSettings } from '@aws-amplify/ui-react';
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import Popup from '../components/popup'
+
 import * as mutations from '../graphql/mutations';
 
 
@@ -93,6 +94,11 @@ const StatsPage = () => {
         setIsPopupOpen(false);
     }
 
+    //handle success for password change
+    const handleSuccess = () => {
+        alert('password is successfully changed!')
+      }
+
     return (
     <div>
         <Navbar currentPage="userpage" />
@@ -108,7 +114,10 @@ const StatsPage = () => {
                             <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
                             <button onClick={signOut}>Sign out</button>
+
                         </div>
+                        <AccountSettings.ChangePassword onSuccess={handleSuccess}/>
+            
                     </div>
                 </div>
                 <div className="col-md-8">

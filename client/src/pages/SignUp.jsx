@@ -17,7 +17,7 @@ const SignUp = () => {
     const handleSignIn = () => {
         navigate("/main");
     }
-
+    
     return (
         <div>
             <Navbar currentPage="login/signup"/>
