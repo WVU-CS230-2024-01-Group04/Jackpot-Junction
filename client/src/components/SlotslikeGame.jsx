@@ -54,7 +54,6 @@ const SlotslikeGame = ({
             const getUser = client.graphql({ query: queries.getUser, variables: { id: user.username }});
             getUser.then((value) => {
                 if(!initializedBal){
-                    console.log(value.data.getUser);
                     setBalInited(true);
                     setWinnings(value.data.getUser.Balance);
                     setWincount(value.data.getUser.TotalSpinsSlots);
@@ -65,10 +64,10 @@ const SlotslikeGame = ({
 
     // update the player's info in the database
     function pushBal(newBal, newWins = wincount){
-        if(!initializedBal)//gottenID === "undef")
+        if(!initializedBal)
             return;
         client.graphql({ query: mutations.updateUser, variables: { input: {
-            id: user.username,//gottenID,
+            id: user.username,
             Balance: newBal,
             TotalSpinsSlots: newWins
         }}});
