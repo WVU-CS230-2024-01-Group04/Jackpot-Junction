@@ -20,6 +20,9 @@ const BlackjackPage = () => {
                     <li>
                         Try to get lucky with the right number to get a 36-1 reward!
                     </li>
+                    <li>
+                        Or bet on the other spaces for a 2to1 reward!
+                    </li>
                 </ul>
             </div>
 

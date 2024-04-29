@@ -125,7 +125,6 @@ const StatsPage = () => {
     <div>
 
     <Navbar currentPage="userpage" />
-    Stashed changes
         <div className="container mt-4">
             <div className="row">
                 <div className="col-md-4">

@@ -15,8 +15,8 @@ const Roulette = () => {
                     35, 3, 26]
     let space = -1;
 
-    //the array for the betting buttons, 0-36 numbers, 37-39 2to1, 40-42 top row, 43-48 bottom row
-    const [betArray, setBetArray] = useState(Array(49).fill(0));
+    //the array for the betting buttons, 0-36 numbers, 37-40 even/odd and red/black
+    const [betArray, setBetArray] = useState(Array(41).fill(0));
 
     //roulette javascript stuff
     const [resultMessage, setResultMessage] = useState("");
@@ -32,6 +32,7 @@ const Roulette = () => {
     const {user} = useAuthenticator((context) => [context.user]);
     const client = generateClient();
     const [money, setMoney] = useState(0);
+    const [spins, setSpins] = useState(0);
 
     // (Oskar Engen) function to get players balance
     getPlayersBal();
@@ -45,6 +46,7 @@ const Roulette = () => {
                         setBalInited(true);
                         setID(u.id);
                         setMoney(u.Balance);
+                        setSpins(u.TotalSpinsRoullette);
                     }
                 }
             });
@@ -61,6 +63,16 @@ const Roulette = () => {
         }}});
     }
 
+    // function to push the new number of roulette spins to the user's account
+    function pushSpins(newVal){
+        if(gottenID === "undef")
+            return;
+        client.graphql({ query: mutations.updateUser, variables: { input: {
+            id: gottenID,
+            TotalSpinsRoullette: newVal
+        }}});
+    }
+
     const handleBetChip = (value) =>
     {
         setBetChip(value);
@@ -68,21 +80,24 @@ const Roulette = () => {
 
     const clearBetBoard = () =>
     {
-        //clear number buttons
-        for (let i = 0; i < 37; i++)
+        //clearing button bets
+        for (let i = 0; i < 41; i++)
         {
             betArray[i] = 0;
         }
-        for (let i = 0; i < 37; i++)
-        {
-            console.log(`button at index ${i} = ${betArray[i]}`);
-        }
-
-        //clear special buttons
     }
 
     const spinWheel = () => 
     {
+        //turning all negative values to 0's because of a thing with the button logic where you can get negative values
+        for (let i = 0; i < 41; i++)
+        {
+            if (betArray[i] < 0)
+            {
+                betArray[i] = 0;
+            }
+        }
+
         //checking if there is a bet on any index in the array
         if (betArray.every(bet => bet === 0))
         {
@@ -130,12 +145,23 @@ const Roulette = () => {
             //number space winning, 0 if no bet here
             let winnings = betArray[space] * 36;
 
-            //------extra logic for special buttons here------
+            //special buttons logic
+            //if the space is even, pay out even/red 2to1, otherwise pay out odd/black 2to1
+            if (space % 2 === 0)
+            {
+                winnings += (betArray[37] * 2) + (betArray[38] * 2);
+            }
+            else
+            {
+                winnings += (betArray[39] * 2) + (betArray[40] * 2);
+            }
 
-            //giving out winnings and displaying the win message
+            //giving out winnings/spins and displaying the win message
             setMoney(money + winnings);
             setMoney(prevMoney => prevMoney - totalBetAmount);
             pushBal(money - totalBetAmount + winnings);
+            setSpins(spins + 1);
+            pushSpins(spins + 1);
             setWinMessage(`You won $${winnings}!`);
         }, 3000);
     }
@@ -158,7 +184,7 @@ const Roulette = () => {
                 </div>
 
                 {/* The users current money, and inputs for the bet */}
-                <p>Money: {money}</p>
+                <p>Tokens: {money}</p>
                 <div className='bet_chip_buttons_container'>
                     <div style={{border: `2px solid ${activeBetChip === 1 ? 'black' : 'grey'}` }}>
                         <button className='bet_chip_button' style={{border: '2px solid red'}} onClick={() => handleBetChip(1)}>1</button>
@@ -201,6 +227,11 @@ const Roulette = () => {
             </div>
 
             {/* This div holds all the number buttons for betting */}
+            <div>
+            {/* This shows the total spins */}
+            <h3>Roulette spins on this account: {spins}</h3>
+
+            {/* This is the number buttons */}
             <div className='roulette_board'>
                 <div>
                     <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={0} buttonType={'number'} betArray={betArray} setBetArray={setBetArray} index={0}/>
@@ -266,6 +297,15 @@ const Roulette = () => {
                     <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={35} buttonType={'number'} betArray={betArray} setBetArray={setBetArray} index={35}/>
                     <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={34} buttonType={'number'} betArray={betArray} setBetArray={setBetArray} index={36}/>
                 </div>
+            </div>
+
+            {/* This is the special buttons */}
+            <div className='roulette_board'>
+                <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={'Even'} buttonType={'special'} betArray={betArray} setBetArray={setBetArray} index={37}/>
+                <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={'Red'} buttonType={'special'} betArray={betArray} setBetArray={setBetArray} index={38}/>
+                <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={'Black'} buttonType={'special'} betArray={betArray} setBetArray={setBetArray} index={39}/>
+                <RouletteButton disabled={spinning} betAmount={activeBetChip} toDisplay={'Odd'} buttonType={'special'} betArray={betArray} setBetArray={setBetArray} index={40}/>
+            </div>
             </div>
         </div>
     </div>
