@@ -15,6 +15,7 @@ export const createUser = /* GraphQL */ `
       GamesPlayedBlackjack
       TotalSpinsSlots
       TotalSpinsRoullette
+      Pfp
       createdAt
       updatedAt
       __typename
@@ -35,6 +36,7 @@ export const updateUser = /* GraphQL */ `
       GamesPlayedBlackjack
       TotalSpinsSlots
       TotalSpinsRoullette
+      Pfp
       createdAt
       updatedAt
       __typename
@@ -55,6 +57,7 @@ export const deleteUser = /* GraphQL */ `
       GamesPlayedBlackjack
       TotalSpinsSlots
       TotalSpinsRoullette
+      Pfp
       createdAt
       updatedAt
       __typename

@@ -29,6 +29,7 @@ export declare type UserUpdateFormInputValues = {
     GamesPlayedBlackjack?: number;
     TotalSpinsSlots?: number;
     TotalSpinsRoullette?: number;
+    Pfp?: number;
 };
 export declare type UserUpdateFormValidationValues = {
     Username?: ValidationFunction<string>;
@@ -38,6 +39,7 @@ export declare type UserUpdateFormValidationValues = {
     GamesPlayedBlackjack?: ValidationFunction<number>;
     TotalSpinsSlots?: ValidationFunction<number>;
     TotalSpinsRoullette?: ValidationFunction<number>;
+    Pfp?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserUpdateFormOverridesProps = {
@@ -49,6 +51,7 @@ export declare type UserUpdateFormOverridesProps = {
     GamesPlayedBlackjack?: PrimitiveOverrideProps<TextFieldProps>;
     TotalSpinsSlots?: PrimitiveOverrideProps<TextFieldProps>;
     TotalSpinsRoullette?: PrimitiveOverrideProps<TextFieldProps>;
+    Pfp?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UserUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserUpdateFormOverridesProps | undefined | null;

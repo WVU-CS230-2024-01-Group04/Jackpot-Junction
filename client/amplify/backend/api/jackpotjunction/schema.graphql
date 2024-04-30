@@ -7,5 +7,6 @@ type User @model @auth(rules: [{allow: public}]) {
   GamesPlayedBlackjack: Int
   TotalSpinsSlots: Int
   TotalSpinsRoullette: Int
+  Pfp: Int
 }
  

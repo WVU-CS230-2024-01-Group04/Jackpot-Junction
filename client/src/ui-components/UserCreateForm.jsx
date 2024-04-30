@@ -30,6 +30,7 @@ export default function UserCreateForm(props) {
     GamesPlayedBlackjack: "",
     TotalSpinsSlots: "",
     TotalSpinsRoullette: "",
+    Pfp: "",
   };
   const [Username, setUsername] = React.useState(initialValues.Username);
   const [Balance, setBalance] = React.useState(initialValues.Balance);
@@ -48,6 +49,7 @@ export default function UserCreateForm(props) {
   const [TotalSpinsRoullette, setTotalSpinsRoullette] = React.useState(
     initialValues.TotalSpinsRoullette
   );
+  const [Pfp, setPfp] = React.useState(initialValues.Pfp);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setUsername(initialValues.Username);
@@ -57,6 +59,7 @@ export default function UserCreateForm(props) {
     setGamesPlayedBlackjack(initialValues.GamesPlayedBlackjack);
     setTotalSpinsSlots(initialValues.TotalSpinsSlots);
     setTotalSpinsRoullette(initialValues.TotalSpinsRoullette);
+    setPfp(initialValues.Pfp);
     setErrors({});
   };
   const validations = {
@@ -67,6 +70,7 @@ export default function UserCreateForm(props) {
     GamesPlayedBlackjack: [],
     TotalSpinsSlots: [],
     TotalSpinsRoullette: [],
+    Pfp: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -101,6 +105,7 @@ export default function UserCreateForm(props) {
           GamesPlayedBlackjack,
           TotalSpinsSlots,
           TotalSpinsRoullette,
+          Pfp,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -170,6 +175,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack,
               TotalSpinsSlots,
               TotalSpinsRoullette,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.Username ?? value;
@@ -204,6 +210,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack,
               TotalSpinsSlots,
               TotalSpinsRoullette,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.Balance ?? value;
@@ -238,6 +245,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack,
               TotalSpinsSlots,
               TotalSpinsRoullette,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.WinsBlackJack ?? value;
@@ -272,6 +280,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack,
               TotalSpinsSlots,
               TotalSpinsRoullette,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.LossesBlackJack ?? value;
@@ -306,6 +315,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack: value,
               TotalSpinsSlots,
               TotalSpinsRoullette,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.GamesPlayedBlackjack ?? value;
@@ -342,6 +352,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack,
               TotalSpinsSlots: value,
               TotalSpinsRoullette,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.TotalSpinsSlots ?? value;
@@ -376,6 +387,7 @@ export default function UserCreateForm(props) {
               GamesPlayedBlackjack,
               TotalSpinsSlots,
               TotalSpinsRoullette: value,
+              Pfp,
             };
             const result = onChange(modelFields);
             value = result?.TotalSpinsRoullette ?? value;
@@ -391,6 +403,41 @@ export default function UserCreateForm(props) {
         errorMessage={errors.TotalSpinsRoullette?.errorMessage}
         hasError={errors.TotalSpinsRoullette?.hasError}
         {...getOverrideProps(overrides, "TotalSpinsRoullette")}
+      ></TextField>
+      <TextField
+        label="Pfp"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={Pfp}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              Username,
+              Balance,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
+              Pfp: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Pfp ?? value;
+          }
+          if (errors.Pfp?.hasError) {
+            runValidationTasks("Pfp", value);
+          }
+          setPfp(value);
+        }}
+        onBlur={() => runValidationTasks("Pfp", Pfp)}
+        errorMessage={errors.Pfp?.errorMessage}
+        hasError={errors.Pfp?.hasError}
+        {...getOverrideProps(overrides, "Pfp")}
       ></TextField>
       <Flex
         justifyContent="space-between"
