@@ -7,9 +7,13 @@ const Navbar = ({currentPage}) =>
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
       
+      {/* This is the navbar stuff, most of it comes from bootstrap */}
     <div className="navbar-nav" style={{marginLeft: '10px'}}>
       <div className="collapse navbar-collapse" id="navbarNav">
+        {/* This is a list of presets for the navbar based on a string parameter. The string determines what preset is shown. */}
           <ul className="navbar-nav ml-auto">
+            {/* Here is the preset for the front page of the site. It will show the Jackpot Junction in the top left and a link to the login/signup page. */}
+            {/* All subsequent presets work like this one with different links for different pages. */}
             {currentPage === 'frontpage' && (
               <>
                 <li>
