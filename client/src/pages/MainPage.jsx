@@ -19,7 +19,8 @@ const MainPage = () => {
                 variables: { input: {
                     id: username,
                     Username: username,
-                    Balance: 1000
+                    Balance: 1000,
+                    
 
                 } }
             }).then(() => {
