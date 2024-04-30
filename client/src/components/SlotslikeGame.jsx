@@ -163,6 +163,7 @@ const SlotslikeGame = ({
     )
 }
 const SlotsScoring = {
+    //checks to see if there are any symbols such that n occur on the board
     ofakind: (slotstate, n) => {
         let cols = slotstate.length;
         for(let baseslot = 0; baseslot < cols; baseslot++){
@@ -177,6 +178,7 @@ const SlotsScoring = {
         return false;
     },
     
+    //checks to see if there are any lines of n symbols on the board
     lineup: (slotstate, n) => {
         let cols = slotstate.length;
         for(let start = 0; start < cols - n; start++){
@@ -191,6 +193,7 @@ const SlotsScoring = {
         }
         return false;
     },
+    //checks to see if there are any lines of length n of a given symbol
     lineup_sp: (slotstate, n, symbol)=>{
         let cols = slotstate.length;
         for(let start = 0; start < cols - n; start++){
@@ -204,6 +207,7 @@ const SlotsScoring = {
         }
         return false;
     }, 
+    //checks to see if there are two runs of three on a board of width 7. only useful for slots1.
     broken_threes: (slotstate, symbol) => {
         let v = true;
         for (let i = 0; i < 3; i++)
@@ -212,7 +216,10 @@ const SlotsScoring = {
             v &&= slotstate[i][0] === symbol;
         return v;
     },
-    
+    //checks for diagonals down of length n. for example, a diagonal down of 0's of length 3
+    //0 x x
+    //x 0 x
+    //x x 0
     diagonalDown: (slotstate, n) => {
         let cols = slotstate.length;
         let rows = slotstate[0].length;
@@ -232,6 +239,7 @@ const SlotsScoring = {
         }
         return false;
     },
+    //conversely, checks for a diagonal up
     diagonalUp: (slotstate, n) => {
         let cols = slotstate.length;
         let rows = slotstate[0].length;
@@ -251,6 +259,7 @@ const SlotsScoring = {
         }
         return false;
     },
+    //checks for a diagonal in either direction
     diagonal: (state, n) =>{
         return SlotsScoring.diagonalDown(state, n) || SlotsScoring.diagonalUp(state, n);
     }
