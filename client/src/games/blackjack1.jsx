@@ -291,6 +291,7 @@ const Blackjack = () => {
             <h1 className={styles.title}>Blackjack Game</h1>
             <div className={styles.tokens}>Tokens: {tokens}</div>
             
+            {/*Area of the page where the user can select their bet amount*/}
             <input
                 className={styles.input}
                 type="text"
@@ -299,6 +300,7 @@ const Blackjack = () => {
                 onChange={handleBetChange}
                 disabled={betConfirmed || gameStarted}
             />
+            {/*Button that locks in your bet*/}
             <button 
                 className={styles.button} 
                 onClick={confirmBet} 
@@ -306,6 +308,7 @@ const Blackjack = () => {
             >
                 Confirm Bet
             </button>
+            {/*Button to press to start the game*/}
             <button 
                 className={styles.button} 
                 onClick={startNewGame} 
@@ -313,7 +316,7 @@ const Blackjack = () => {
             >
                 New Game
             </button>
-    
+            {/*Playing area for the cards*/}
             <div className={styles.section}>
                 <div>Player Points: {playerPoints}</div>
                 <div>{playerCards.map(cardCode => (
@@ -326,7 +329,7 @@ const Blackjack = () => {
                     <img src={cardValues[cardCode].img} alt={cardCode} key={cardCode} className={styles.cardImage} />
                 ))}</div>
             </div>
-            
+            {/*Button that the player uses to hit (recieve new cards)*/}
             <button 
                 className={styles.button} 
                 onClick={playerHits} 
@@ -334,6 +337,7 @@ const Blackjack = () => {
             >
                 Hit
             </button>
+            {/*Button that the player used to stand*/}
             <button 
                 className={styles.button} 
                 onClick={playerStands} 
@@ -341,6 +345,7 @@ const Blackjack = () => {
             >
                 Stand
             </button>
+            {/*Message that displays the outcome of the game*/}
             {message && <div className={styles.message}>{message}</div>}
         </div>
         </>
