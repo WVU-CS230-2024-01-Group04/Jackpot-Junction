@@ -7,25 +7,31 @@ import backgroundImage from "../images/backgroundImage.jpg";
 import MainPage from "./MainPage"; 
 
 const SignUp = () => {
-    const navigate = useNavigate();
-    const [agreedToTerms, setAgreedToTerms] = useState(false);
+    //hook to navigate to different routes 
+    const navigate = useNavigate(); 
+    //state to track if user has agreed to terms of services 
+    const [agreedToTerms, setAgreedToTerms] = useState(false); 
 
+    //function when user agrees to terms 
     const handleAgreeToTerms = () => {
         setAgreedToTerms(true);
         
     }
 
+    //function to navigate to main page once user has signed up or logged in 
     const handleSignIn = () => {
-        navigate("/main");
+        navigate("/main"); 
     }
 
     return (
         <div>
             <Navbar currentPage="login/signup"/>
+            {/*Container for background image*/}
             <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <div style={{ width: '50%' }}>
                     <img src={require("../images/vegas.png")} className="img-fluid icon" style={{ width: '100%', height: 'auto' }} alt="Icon" />
                 </div>
+                {/*Display terms of services if user has not yet agreed*/}
                 {!agreedToTerms && (
                     <div className="col-md-6" style={{ backgroundColor: '#f4f4f4', padding: '30px 40px', borderRadius: '20px', marginRight: '30px' }}> 
                         <form onSubmit={handleAgreeToTerms}>
@@ -44,6 +50,7 @@ const SignUp = () => {
                         </form>
                     </div>
                 )}
+                {/*If user agreed to terms of services, show AWS amplify auth component for signup and login */}
                 {agreedToTerms && (
                     <Authenticator style={{ marginLeft: '20px' }}>
                         {({ user }) => (
