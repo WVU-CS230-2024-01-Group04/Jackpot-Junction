@@ -8,11 +8,11 @@ const slots2 = () =>
     let symbols = ["♦", "♣", "♥", "♠"];
     let reel = [1, 2, 3, 1, 2, 0, 1, 3, 0, 2, 3, 0];
     function scoring(state){
-        if(SlotsScoring.ofakind(5)){
+        if(SlotsScoring.ofakind(state, 5)){
             return 50;
-        } else if(SlotsScoring.ofakind(4)){
+        } else if(SlotsScoring.ofakind(state, 4)){
             return 25;
-        } else if(SlotsScoring.ofakind(3)){
+        } else if(SlotsScoring.ofakind(state, 3)){
             return 5;
         }
         return 0;
