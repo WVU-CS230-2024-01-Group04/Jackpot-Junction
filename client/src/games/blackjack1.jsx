@@ -63,6 +63,7 @@ import kingOfSpades from '../images/blackjackCards1/king_of_spades2.png';
 import aceOfSpades from '../images/blackjackCards1/ace_of_spades.png';
 
 const Blackjack = () => {
+    // Sets the card values for each card by creating an object with the corresponding image and value
     const cardValues = {
         '2C': { img: twoOfClubs, value: 2 },
         '3C': { img: threeOfClubs, value: 3 },
@@ -121,6 +122,11 @@ const Blackjack = () => {
         'AS': { img: aceOfSpades, value: 11 }
     };
 
+    /**
+     * Shuffles the given deck of cards
+     * @param {string[]} deck  The deck of cards to be shuffled
+     * @returns {string[]} The shuffled deck of cards
+     */
     const shuffleDeck = (deck) => {
         let shuffledDeck = [...deck];
         for (let i = shuffledDeck.length - 1; i > 0; i--) {
@@ -142,6 +148,7 @@ const Blackjack = () => {
     const [bet, setBet] = useState("");
     const [deck, setDeck] = useState([]); 
 
+    // Function that starts a new game and resets points whenever a new game is started
     const startNewGame = () => {
         if (betConfirmed && tokens >= bet) {
         setTokens(tokens - bet);
@@ -163,6 +170,11 @@ const Blackjack = () => {
         }
     };
     
+    /**
+     * Calculates the total points of the card thats shown
+     * @param {string[]} cards  The cards that are going to be calculated
+     * @returns {number} The total points of the cards
+     */
     const calculatePoints = (cards) => {
     let total = 0;
     let aceCount = 0;
@@ -185,6 +197,7 @@ const Blackjack = () => {
      return total;
     };
 
+    // Function that controls what happens when players hit
     const playerHits = () => {
         if (deck.length > 0 && tokens >= 0 && !gameOver) {
             const newCard = deck[0];
@@ -206,6 +219,7 @@ const Blackjack = () => {
         }
     };
 
+    // Function that controls what happens when a player stands
     const playerStands = () => {
         let newDealerPoints = dealerPoints;
         let newDealerCards = [...dealerCards];
@@ -227,7 +241,8 @@ const Blackjack = () => {
                 finishGame();
             }
         };
-    
+        
+        // makes sure the game is over after the player hits and the dealer's turn is over
         const finishGame = () => {
             setGameOver(true);
             setGameStarted(false);
@@ -248,6 +263,10 @@ const Blackjack = () => {
         setTimeout(hitDealerCard, 1000); // 1 sec delay to let the animation look good
     };
 
+    /**
+     * Handles the change in bet whenever a player types it in
+     * @param {object} event The event object containing the input value
+     */
     const handleBetChange = (event) => {
         const betValue = event.target.value;
         if (/^\d*$/.test(betValue)) {  
@@ -255,6 +274,7 @@ const Blackjack = () => {
         }
     };
     
+    // Makes sure the bet amount is valid, and confirms it
     const confirmBet = () => {
         if (bet > 0 && bet <= tokens) {
             setBetConfirmed(true);
