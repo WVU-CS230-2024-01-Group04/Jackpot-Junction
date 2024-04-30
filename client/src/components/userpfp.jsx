@@ -14,7 +14,7 @@ const UserPfp = () => {
 
     const pfps = [kermitImg, natureImg, thImg, bwImg, snoopyImg];
     const [inited, setInited] = useState(false);
-    const [imgnum, setImgnum] = useState(0);
+    const [imgnum, setImgnum] = useState(-1);
 
     const client = generateClient();
     const {user} = useAuthenticator((context) => [context.user]);
