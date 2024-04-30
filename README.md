@@ -3,6 +3,27 @@
 **Jackpot-Junction:** This is a fun, free gambling site for blackjack slots and roulette 
 where user play games in an updated and clean UI directly in their browser. 
 
+
+**Getting Started**
+
+To get started with playing Blackjack, follow these steps:
+
+1. Clone the repository:
+
+- gh repo clone WVU-CS230-2024-01-Group04/Jackpot-Junction
+  
+2. Navigate into the project directory:
+
+-    cd client
+
+3. Then type the command below in the terminal 
+-    npm install
+-    amplify pull --appId d2guk0wqbl2y37 --envName staging
+-    npm start
+
+4. Then register by creating account and you are good to play the game.
+
+
       **Blackjack Game**
 Blackjack, formerly known as black jack and vingt-un, is a popular casino banking game played worldwide. 
 Here are some key points about the game:
@@ -64,26 +85,6 @@ The goal of blackjack is to get a hand value closer to 21 than the dealer withou
 2. Doubling down pays out at 1:1 on the original bet amount.
 
 3. Insurance (betting that the dealer has a Blackjack) pays out at 2:1.
-
-
-**Getting Started**
-
-To get started with playing Blackjack, follow these steps:
-
-1. Clone the repository:
-
-   git clone https://github.com/yourusername/blackjack-game.git
-
-2. Navigate into the project directory:
-
-   cd client
-
-3. Then type the command below
-   npm install
-   npm start
-
-4. Then register by creating account and you are good to play the game.
-
 
 
 **Slots Game**
