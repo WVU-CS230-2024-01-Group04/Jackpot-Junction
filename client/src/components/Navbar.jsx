@@ -1,7 +1,9 @@
+// Imports CSS for styling, bootstap, and react components
 import "bootstrap/dist/css/bootstrap.css"
 import React from "react"
 import { Link } from "react-router-dom"
 
+// Navbar component for all the pages in jackpot junction
 const Navbar = ({currentPage}) =>
 { 
   return (
@@ -24,6 +26,7 @@ const Navbar = ({currentPage}) =>
                 </li>
               </>
             )}
+            {/*Navbar for the login/signup page*/}
             {currentPage === 'login/signup' && (
               <>
                 <li>
@@ -31,6 +34,7 @@ const Navbar = ({currentPage}) =>
                 </li>
               </>
             )}
+            {/*Navbar for the main page along with the game pages*/}
             {currentPage === 'main' && (
               <>
                 <li>
@@ -50,6 +54,7 @@ const Navbar = ({currentPage}) =>
                 </li>
               </>
             )}
+            {/*Navbar for the user page, excludes the link to the user page*/}
             {currentPage === 'userpage' && (
               <>
               <li>
@@ -66,49 +71,9 @@ const Navbar = ({currentPage}) =>
               </li>
             </>
             )}
-            {currentPage === 'slots' && (
-              <>
-                <li>
-                  <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/main">Main</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/userpage">User</Link>
-                </li>
-              </>
-            )}
-            {currentPage === 'cards' && (
-              <>
-                <li>
-                  <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/main">Main</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/userpage">User</Link>
-                </li>
-              </>
-            )}
-            {currentPage === 'chance' && (
-              <>
-                <li>
-                  <Link className="navbar-brand" to="/main">Jackpot Junction</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/main">Main</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/userpage">User</Link>
-                </li>
-              </>
-            )}
           </ul>
         </div>
     </div>
-
   </nav>
   )
 }

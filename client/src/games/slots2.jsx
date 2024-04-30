@@ -19,7 +19,7 @@ const slots2 = () =>
     }
     return(
             <Authenticator.Provider>
-                <Navbar currentPage="slots"/>
+                <Navbar currentPage="main"/>
                 <SlotslikeGame cols={5} symbols={symbols} reel={reel} costToPlay={25} scoring={scoring}/>
             </Authenticator.Provider>
     )
