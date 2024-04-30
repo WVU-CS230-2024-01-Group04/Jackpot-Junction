@@ -9,6 +9,9 @@ const SlotslikeGame = ({
     cols = 7, rows = 1,
     reel = [  0,    1,     2,    3,     4,    5,     6,    7,     8,    9,    10,   11],
     symbols = ["🍌", "🍎", "🍒", "🎰", "🍏", "🍊", "🍋", "🍉", "🍇", "🍓", "🍍", "💰"],
+    //default scoring function. takes in a state of the board and returns the score it is worth.
+    //state: state of the board
+    //returns: the score the board is worth
     scoring = (state) =>
     {
         let score = 0;
@@ -49,6 +52,7 @@ const SlotslikeGame = ({
     getPlayersBal(user);
 
     // get the players info to init states
+    //user: which user to get info on
     function getPlayersBal(user){
         if(user != null && user.username != null){
             const getUser = client.graphql({ query: queries.getUser, variables: { id: user.username }});
@@ -63,6 +67,8 @@ const SlotslikeGame = ({
     }
 
     // update the player's info in the database
+    //newBal: the new balance to give the player
+    //newWins: new value of TotalSpinsSlots to give the player
     function pushBal(newBal, newWins = wincount){
         if(!initializedBal)
             return;
@@ -74,6 +80,8 @@ const SlotslikeGame = ({
     }
 
     //turn an array of slot state numbers into an array of numbers representing the symbols
+    //state: the 1d array containing the numbers to compile.
+    //returns: a 2d array numerically describing the symbols
     function compileStateToSymbols(state){
         return state.map((colRot) => {
             let a = [];
@@ -85,6 +93,7 @@ const SlotslikeGame = ({
     }
     
     //generate a new random state for the slot machine
+    //returns: the new randomized state
     function roll(){
         let localbuildstate = [];
         for(let i = 0; i < cols; i++){
@@ -96,6 +105,9 @@ const SlotslikeGame = ({
     
     //show "showslots" number of slots, as passed in by state
     //all slots past showslots will be randomized
+    //showslots: an int, up to which (exclusive) the actual value will be shown
+    //state: what state to show, before showslots.
+    //returns: the string to output
     function display(showslots, state=slotstate){
         let str = "";
         for(let row = 0; row < rows; row++){
@@ -112,7 +124,8 @@ const SlotslikeGame = ({
         return str;
     }
     
-    //reveal each slot one by one for dramatic function
+    //reveal each slot one by one for dramatic effect
+    //state: what state should be displayed (or partially displayed) to the player
     function reveal(state=slotstate){
         let showslot = 0;
         let interval;
@@ -164,6 +177,9 @@ const SlotslikeGame = ({
 }
 const SlotsScoring = {
     //checks to see if there are any symbols such that n occur on the board
+    //slotstate: the state of the board
+    //n: the minimum number of symbols to find
+    //returns: true if the pattern occurs, false if it does not.
     ofakind: (slotstate, n) => {
         let cols = slotstate.length;
         for(let baseslot = 0; baseslot < cols; baseslot++){
@@ -179,6 +195,9 @@ const SlotsScoring = {
     },
     
     //checks to see if there are any lines of n symbols on the board
+    //slotstate: the state of the board
+    //n: the minimum length of the pattern to find
+    //returns: true if the pattern occurs, false if it does not.
     lineup: (slotstate, n) => {
         let cols = slotstate.length;
         for(let start = 0; start < cols - n; start++){
@@ -194,6 +213,10 @@ const SlotsScoring = {
         return false;
     },
     //checks to see if there are any lines of length n of a given symbol
+    //slotstate: the state of the board
+    //n: the minimum length of the pattern to find
+    //symbol: the symbol comprising the pattern, as a number
+    //returns: true if the pattern occurs, false if it does not.
     lineup_sp: (slotstate, n, symbol)=>{
         let cols = slotstate.length;
         for(let start = 0; start < cols - n; start++){
@@ -208,6 +231,9 @@ const SlotsScoring = {
         return false;
     }, 
     //checks to see if there are two runs of three on a board of width 7. only useful for slots1.
+    //slotstate: the state of the board
+    //symbol: the symbol comprising the pattern, as a number
+    //returns: true if the pattern occurs, false if it does not.
     broken_threes: (slotstate, symbol) => {
         let v = true;
         for (let i = 0; i < 3; i++)
@@ -220,6 +246,9 @@ const SlotsScoring = {
     //0 x x
     //x 0 x
     //x x 0
+    //slotstate: the state of the board
+    //n: the minimum length of the pattern to find
+    //returns: true if the pattern occurs, false if it does not.
     diagonalDown: (slotstate, n) => {
         let cols = slotstate.length;
         let rows = slotstate[0].length;
@@ -240,6 +269,9 @@ const SlotsScoring = {
         return false;
     },
     //conversely, checks for a diagonal up
+    //slotstate: the state of the board
+    //n: the minimum length of the pattern to find
+    //returns: true if the pattern occurs, false if it does not.
     diagonalUp: (slotstate, n) => {
         let cols = slotstate.length;
         let rows = slotstate[0].length;
@@ -260,6 +292,9 @@ const SlotsScoring = {
         return false;
     },
     //checks for a diagonal in either direction
+    //state: the state of the board
+    //n: the minimum length of the pattern to find
+    //returns: true if the pattern occurs, false if it does not.
     diagonal: (state, n) =>{
         return SlotsScoring.diagonalDown(state, n) || SlotsScoring.diagonalUp(state, n);
     }
