@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3jackpotjunctionuserpfps",
+  "bucketName": "jackpot-junction-userpfps",
+  "policyUUID": "8fa4b889",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

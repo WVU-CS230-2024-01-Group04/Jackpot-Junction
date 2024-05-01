@@ -33,6 +33,7 @@ export default function UserUpdateForm(props) {
     TotalSpinsSlots: "",
     TotalSpinsRoullette: "",
     Pfp: "",
+    PfpString: "",
   };
   const [Username, setUsername] = React.useState(initialValues.Username);
   const [Balance, setBalance] = React.useState(initialValues.Balance);
@@ -52,6 +53,7 @@ export default function UserUpdateForm(props) {
     initialValues.TotalSpinsRoullette
   );
   const [Pfp, setPfp] = React.useState(initialValues.Pfp);
+  const [PfpString, setPfpString] = React.useState(initialValues.PfpString);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
@@ -65,6 +67,7 @@ export default function UserUpdateForm(props) {
     setTotalSpinsSlots(cleanValues.TotalSpinsSlots);
     setTotalSpinsRoullette(cleanValues.TotalSpinsRoullette);
     setPfp(cleanValues.Pfp);
+    setPfpString(cleanValues.PfpString);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -92,6 +95,7 @@ export default function UserUpdateForm(props) {
     TotalSpinsSlots: [],
     TotalSpinsRoullette: [],
     Pfp: [],
+    PfpString: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -127,6 +131,7 @@ export default function UserUpdateForm(props) {
           TotalSpinsSlots: TotalSpinsSlots ?? null,
           TotalSpinsRoullette: TotalSpinsRoullette ?? null,
           Pfp: Pfp ?? null,
+          PfpString: PfpString ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -195,6 +200,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.Username ?? value;
@@ -230,6 +236,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.Balance ?? value;
@@ -265,6 +272,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.WinsBlackJack ?? value;
@@ -300,6 +308,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.LossesBlackJack ?? value;
@@ -335,6 +344,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.GamesPlayedBlackjack ?? value;
@@ -372,6 +382,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots: value,
               TotalSpinsRoullette,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.TotalSpinsSlots ?? value;
@@ -407,6 +418,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette: value,
               Pfp,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.TotalSpinsRoullette ?? value;
@@ -444,6 +456,7 @@ export default function UserUpdateForm(props) {
               TotalSpinsSlots,
               TotalSpinsRoullette,
               Pfp: value,
+              PfpString,
             };
             const result = onChange(modelFields);
             value = result?.Pfp ?? value;
@@ -457,6 +470,38 @@ export default function UserUpdateForm(props) {
         errorMessage={errors.Pfp?.errorMessage}
         hasError={errors.Pfp?.hasError}
         {...getOverrideProps(overrides, "Pfp")}
+      ></TextField>
+      <TextField
+        label="Pfp string"
+        isRequired={false}
+        isReadOnly={false}
+        value={PfpString}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Username,
+              Balance,
+              WinsBlackJack,
+              LossesBlackJack,
+              GamesPlayedBlackjack,
+              TotalSpinsSlots,
+              TotalSpinsRoullette,
+              Pfp,
+              PfpString: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.PfpString ?? value;
+          }
+          if (errors.PfpString?.hasError) {
+            runValidationTasks("PfpString", value);
+          }
+          setPfpString(value);
+        }}
+        onBlur={() => runValidationTasks("PfpString", PfpString)}
+        errorMessage={errors.PfpString?.errorMessage}
+        hasError={errors.PfpString?.hasError}
+        {...getOverrideProps(overrides, "PfpString")}
       ></TextField>
       <Flex
         justifyContent="space-between"

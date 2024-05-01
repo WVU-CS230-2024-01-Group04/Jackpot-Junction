@@ -30,6 +30,7 @@ export declare type UserCreateFormInputValues = {
     TotalSpinsSlots?: number;
     TotalSpinsRoullette?: number;
     Pfp?: number;
+    PfpString?: string;
 };
 export declare type UserCreateFormValidationValues = {
     Username?: ValidationFunction<string>;
@@ -40,6 +41,7 @@ export declare type UserCreateFormValidationValues = {
     TotalSpinsSlots?: ValidationFunction<number>;
     TotalSpinsRoullette?: ValidationFunction<number>;
     Pfp?: ValidationFunction<number>;
+    PfpString?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserCreateFormOverridesProps = {
@@ -52,6 +54,7 @@ export declare type UserCreateFormOverridesProps = {
     TotalSpinsSlots?: PrimitiveOverrideProps<TextFieldProps>;
     TotalSpinsRoullette?: PrimitiveOverrideProps<TextFieldProps>;
     Pfp?: PrimitiveOverrideProps<TextFieldProps>;
+    PfpString?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UserCreateFormProps = React.PropsWithChildren<{
     overrides?: UserCreateFormOverridesProps | undefined | null;
