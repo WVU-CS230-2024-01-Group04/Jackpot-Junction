@@ -29,6 +29,7 @@ export declare type UserCreateFormInputValues = {
     GamesPlayedBlackjack?: number;
     TotalSpinsSlots?: number;
     TotalSpinsRoullette?: number;
+    Pfp?: number;
 };
 export declare type UserCreateFormValidationValues = {
     Username?: ValidationFunction<string>;
@@ -38,6 +39,7 @@ export declare type UserCreateFormValidationValues = {
     GamesPlayedBlackjack?: ValidationFunction<number>;
     TotalSpinsSlots?: ValidationFunction<number>;
     TotalSpinsRoullette?: ValidationFunction<number>;
+    Pfp?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserCreateFormOverridesProps = {
@@ -49,6 +51,7 @@ export declare type UserCreateFormOverridesProps = {
     GamesPlayedBlackjack?: PrimitiveOverrideProps<TextFieldProps>;
     TotalSpinsSlots?: PrimitiveOverrideProps<TextFieldProps>;
     TotalSpinsRoullette?: PrimitiveOverrideProps<TextFieldProps>;
+    Pfp?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type UserCreateFormProps = React.PropsWithChildren<{
     overrides?: UserCreateFormOverridesProps | undefined | null;

@@ -19,28 +19,6 @@ const StatsPage = () => {
 
    
     //fake data until database is up 
-    const slotsStats = {
-        gamesPlayed: 20,
-        wins: 15,
-        losses: 5,
-        totalBetAmount: 1000,
-        totalWinnings: 1500,
-        highestWin: 500,
-        averagePayout: 1.5
-    };
-
-    const blackjackStats = {
-        gamesPlayed: 50,
-        wins: 30,
-        losses: 20,
-        totalBetAmount: 2000,
-        totalWinnings: 2500,
-        totalPushes: 10,
-        totalBusts: 5,
-        winningStreaks: 7,
-        losingStreaks: 4,
-        averageWinRate: 60
-    };
 
     //user data stuff
     const [initializedBal, setBalInited] = useState(false);
@@ -49,6 +27,12 @@ const StatsPage = () => {
     const [money, setMoney] = useState(0);
     const [username, setUsername] = useState("");
     const [gottenID, setID] = useState("undef");
+    const [slotSpins, setSlotSpins] = useState("0");
+    const [rouletteSpins, setRouletteSpins] = useState("0");
+    const [jackLosses, setJackLosses] = useState("0");
+    const [jackWins, setJackWins] = useState("0");
+    const [jackGames, setJackGames] = useState("0");
+
 
     // (Oskar Engen) function to get players balance
     getPlayersBal();
@@ -62,6 +46,11 @@ const StatsPage = () => {
                     if(!initializedBal){
                         setBalInited(true);
                         setMoney(u.Balance);
+                        setJackGames(u.GamesPlayedBlackjack);
+                        setSlotSpins(u.TotalSpinsSlots);
+                        setRouletteSpins(u.TotalSpinsRoullette);
+                        setJackLosses(u.LossesBlackJack);
+                        setJackWins(u.WinsBlackJack);
                         setID(u.id);
                         setUsername(u.Username);
                     }
@@ -69,6 +58,8 @@ const StatsPage = () => {
             });
         })
     }
+    const blackJackWinRate = Math.round((jackWins/jackGames) * 100);
+    const jackDraws = jackGames-(jackWins+jackLosses);
 
     // (Oskar Engen) function to push an updated balance to the user
     function pushBal(newBal){
@@ -125,6 +116,7 @@ const StatsPage = () => {
     <div>
 
     <Navbar currentPage="userpage" />
+    Stashed changes
         <div className="container mt-4">
             <div className="row">
                 <div className="col-md-4">
@@ -135,7 +127,7 @@ const StatsPage = () => {
                             <h4>Balance: {money}</h4>
                             <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
-                            <button onClick={signOut}>Sign out</button>
+                            <button className="btn btn-primary" onClick={signOut}>Sign out</button>
                             <AccountSettings.DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
 
 
@@ -152,29 +144,25 @@ const StatsPage = () => {
                     <div className="card mb-3">
                         <div className="card-body">
                             <h3>Slots</h3>
-                            <p>Games Played: {slotsStats.gamesPlayed}</p>
-                            <p>Wins: {slotsStats.wins}</p>
-                            <p>Losses: {slotsStats.losses}</p>
-                            <p>Total Bet Amount: ${slotsStats.totalBetAmount}</p>
-                            <p>Total Winnings: ${slotsStats.totalWinnings}</p>
-                            <p>Highest Win: ${slotsStats.highestWin}</p>
-                            <p>Average Payout: {slotsStats.averagePayout}</p>
+                            <p>Games Played: {slotSpins}</p>
                         </div>
                     </div>
 
-                    <div className="card">
+                    <div className="card mb-3">
                         <div className="card-body">
                             <h3>Blackjack</h3>
-                            <p>Games Played: {blackjackStats.gamesPlayed}</p>
-                            <p>Wins: {blackjackStats.wins}</p>
-                            <p>Losses: {blackjackStats.losses}</p>
-                            <p>Total Bet Amount: ${blackjackStats.totalBetAmount}</p>
-                            <p>Total Winnings: ${blackjackStats.totalWinnings}</p>
-                            <p>Total Pushes: {blackjackStats.totalPushes}</p>
-                            <p>Total Busts: {blackjackStats.totalBusts}</p>
-                            <p>Winning Streaks: {blackjackStats.winningStreaks}</p>
-                            <p>Losing Streaks: {blackjackStats.losingStreaks}</p>
-                            <p>Average Win Rate: {blackjackStats.averageWinRate}%</p>
+                            <p>Games Played: {jackGames}</p>
+                            <p>Wins: {jackWins}</p>
+                            <p>Losses: {jackLosses}</p>
+                            <p>Draws: {jackDraws}</p>
+                            <p>Average Win Rate: {blackJackWinRate}%</p>
+                        </div>
+                    </div>
+
+                    <div className="card mb-3">
+                        <div className="card-body">
+                            <h3>Roulette</h3>
+                            <p>Games Played: {rouletteSpins}</p>
                         </div>
                     </div>
                 </div>
