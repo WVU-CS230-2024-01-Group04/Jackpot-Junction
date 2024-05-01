@@ -8,11 +8,7 @@ import { DeleteUser } from '@aws-amplify/ui-react';
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import Popup from '../components/popup'
-
-
 import * as mutations from '../graphql/mutations';
-
-
 import { deleteUser } from '../graphql/mutations';
 
 
@@ -93,16 +89,15 @@ const StatsPage = ({setAgreedToTerms}) => {
         setIsPopupOpen(false);
     }
 
-    //handle success for password change
+    //handle success for password change so there is alert on screen
     const handleSuccess = () => {
         alert('password is successfully changed!')
       }
 
     
 
-      //delete user also in database as well
+      //delete user in database based on id
       const handleDeleteSuccess = async () => {
-        
        await client.graphql({
             query: deleteUser,
             variables: {
@@ -110,23 +105,20 @@ const StatsPage = ({setAgreedToTerms}) => {
                     id: user.username
                 }
             }
-            
-            
         });
+        //delete user in user management, alert user of success, and go to the welcome page
         alert('Account successfully deleted!');
         signOut();
         navigate("/");
       }; 
 
+      //signout user and take them back to welcome page 
       const handleSignOut = async () => {
         await signOut();
-        setAgreedToTerms
+        
         navigate("/");
     }; 
     
-      
-      
-      
 
     return (
     <div>
@@ -143,11 +135,14 @@ const StatsPage = ({setAgreedToTerms}) => {
                             <h4>Balance: {money}</h4>
                             <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
+                            {/*Button to signout user*/}
                             <button className="btn btn-primary" onClick={handleSignOut}>Sign out</button>
+                            {/*Button to delete user in database and user management*/}
                             <AccountSettings.DeleteUser onSuccess={handleDeleteSuccess} />
 
 
                         </div>
+                        {/*Form to change password for user*/}
                         <AccountSettings.ChangePassword onSuccess={handleSuccess}/>
 
 

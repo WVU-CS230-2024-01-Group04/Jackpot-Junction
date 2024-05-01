@@ -8,10 +8,14 @@ import { generateClient } from 'aws-amplify/api';
 import * as mutations from '../graphql/mutations';
 
 const MainPage = () => {
+    //state to store username 
     const [username, setUsername] = useState("");
-    const [agreedToTerms, setAgreedToTerms] = useState(false);
+    //track if user agreed to terms of service 
+    const [agreedToTerms] = useState(false);
+    //api calls for graphql
     const client = generateClient();
 
+    //create new user in graphql database with inital balance of 1000 since signup page only creates one in user management
     useEffect(() => {
         if (username && !agreedToTerms) {
             client.graphql({
@@ -20,8 +24,6 @@ const MainPage = () => {
                     id: username,
                     Username: username,
                     Balance: 1000,
-                    
-
                 } }
             }).then(() => {
                 

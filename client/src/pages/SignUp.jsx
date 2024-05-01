@@ -55,6 +55,7 @@ const SignUp = () => {
                     <Authenticator style={{ marginLeft: '20px' }}>
                         {({ user }) => (
                             <React.Fragment>
+                                {/*If user already signed in, go to mainpage*/}
                                 {user && (
                                     <MainPage user={user} /> 
                                 )}
