@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from '../components/Blackjack.module.css';
-import Navbar from "./Navbar";
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
@@ -68,6 +67,7 @@ import aceOfSpades from '../images/blackjackCards1/ace_of_spades.png';
 import { get } from 'aws-amplify/api';
 
 const Blackjack = () => {
+    // Sets the card values for each card by creating an object with the corresponding image and value
     const cardValues = {
         '2C': { img: twoOfClubs, value: 2 },
         '3C': { img: threeOfClubs, value: 3 },
@@ -126,7 +126,11 @@ const Blackjack = () => {
         'AS': { img: aceOfSpades, value: 11 }
     };
 
-    
+    /**
+     * Shuffles the given deck of cards
+     * @param {string[]} deck  The deck of cards to be shuffled
+     * @returns {string[]} The shuffled deck of cards
+     */
     const shuffleDeck = (deck) => {
         let shuffledDeck = [...deck];
         for (let i = shuffledDeck.length - 1; i > 0; i--) {
@@ -157,6 +161,7 @@ const Blackjack = () => {
 
     getPlayersBal(user)
 
+    // Function that starts a new game and resets points whenever a new game is started
     const startNewGame = () => {
         if (betConfirmed && tokens >= bet) {
         setTokens(tokens - bet);
@@ -178,6 +183,11 @@ const Blackjack = () => {
         }
     };
     
+    /**
+     * Calculates the total points of the card thats shown
+     * @param {string[]} cards  The cards that are going to be calculated
+     * @returns {number} The total points of the cards
+     */
     const calculatePoints = (cards) => {
     let total = 0;
     let aceCount = 0;
@@ -200,6 +210,7 @@ const Blackjack = () => {
      return total;
     };
 
+    // Function that controls what happens when players hit
     const playerHits = () => {
         if (deck.length > 0 && tokens >= 0 && !gameOver) {
             const newCard = deck[0];
@@ -226,6 +237,7 @@ const Blackjack = () => {
         }
     };
 
+    // Function that controls what happens when a player stands
     const playerStands = () => {
         let newDealerPoints = dealerPoints;
         let newDealerCards = [...dealerCards];
@@ -248,6 +260,7 @@ const Blackjack = () => {
             }
         };
     
+        // Makes sure the game is over after the player hits and the dealer's turn is over
         const finishGame = () => {
             setGameOver(true);
             setGameStarted(false);
@@ -279,7 +292,7 @@ const Blackjack = () => {
         setTimeout(hitDealerCard, 1000); // 1 sec delay to let the animation look good
     };
 
-    // get the players info to init states
+    // Gets the players info to init states
     function getPlayersBal(user){
         if(user != null && user.username != null){
             const getUser = client.graphql({ query: queries.getUser, variables: { id: user.username }});
@@ -295,7 +308,7 @@ const Blackjack = () => {
         }
     }
 
-    // update the player's info in the database
+    // Updates the player's info in the database
     function pushBal(newBal, newWins, newLosses, newGames){
         if(!initializedBal)
             return;
@@ -308,6 +321,10 @@ const Blackjack = () => {
         }}});
     }
 
+    /**
+     * Handles the change in bet whenever a player types it in
+     * @param {object} event The event object containing the input value
+     */
     const handleBetChange = (event) => {
         const betValue = event.target.value;
         if (/^\d*$/.test(betValue)) {  
@@ -315,12 +332,13 @@ const Blackjack = () => {
         }
     };
     
+    // Makes sure the bet amount is valid, and confirms it
     const confirmBet = () => {
         if (bet > 0 && bet <= tokens) {
             setBetConfirmed(true);
             setMessage("");
         } else {
-            setMessage("Invalid bet: Bet must be more than 0 and less than or equal to your tokens.");
+            setMessage("Invalid bet: You can't bet 0 or you're out of tokens!");
         }
     };
 
@@ -330,6 +348,7 @@ const Blackjack = () => {
             <h1 className={styles.title}>Blackjack Game</h1>
             <div className={styles.tokens}>Tokens: {tokens}</div>
             
+            {/*Area of the page where the user can select their bet amount*/}
             <input
                 className={styles.input}
                 type="text"
@@ -338,6 +357,7 @@ const Blackjack = () => {
                 onChange={handleBetChange}
                 disabled={betConfirmed || gameStarted}
             />
+            {/*Button that locks in your bet*/}
             <button 
                 className={styles.button} 
                 onClick={confirmBet} 
@@ -345,6 +365,7 @@ const Blackjack = () => {
             >
                 Confirm Bet
             </button>
+            {/*Button to press to start the game*/}
             <button 
                 className={styles.button} 
                 onClick={startNewGame} 
@@ -352,7 +373,7 @@ const Blackjack = () => {
             >
                 New Game
             </button>
-    
+            {/*Playing/ display area for the cards*/}
             <div className={styles.section}>
                 <div>Player Points: {playerPoints}</div>
                 <div>{playerCards.map(cardCode => (
@@ -365,7 +386,7 @@ const Blackjack = () => {
                     <img src={cardValues[cardCode].img} alt={cardCode} key={cardCode} className={styles.cardImage} />
                 ))}</div>
             </div>
-            
+            {/*Button that the player uses to hit*/}
             <button 
                 className={styles.button} 
                 onClick={playerHits} 
@@ -373,6 +394,7 @@ const Blackjack = () => {
             >
                 Hit
             </button>
+            {/*Button that the player used to stand*/}
             <button 
                 className={styles.button} 
                 onClick={playerStands} 
@@ -380,6 +402,7 @@ const Blackjack = () => {
             >
                 Stand
             </button>
+            {/*Message that displays the outcome of the game*/}
             {message && <div className={styles.message}>{message}</div>}
         </div>
         </>
