@@ -4,6 +4,9 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 
+
+import PfpPopup from '../components/pfpuploadpopup.jsx'
+
 import kermitImg from "../images/kermit.webp";
 import natureImg from "../images/winchester.jpg";
 import thImg from "../images/baka.jpg";
@@ -15,6 +18,9 @@ const UserPfp = () => {
     const pfps = [kermitImg, natureImg, thImg, bwImg, snoopyImg];
     const [inited, setInited] = useState(false);
     const [imgnum, setImgnum] = useState(-1);
+    const [imgurl, setImgurl] = useState(null);
+
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const client = generateClient();
     const {user} = useAuthenticator((context) => [context.user]);
@@ -28,6 +34,7 @@ const UserPfp = () => {
                 if(!inited){
                     setInited(true);
                     setImgnum(value.data.getUser.Pfp);
+                    setImgurl(value.data.getUser.PfpString);
                 }
             })
         }
@@ -50,10 +57,26 @@ const UserPfp = () => {
         pushInfo(newNum);
     }
 
+    function openPopup(){
+        setPopupOpen(true);
+    }
+    function closePopup(){
+        setPopupOpen(false);
+    }
+    function submitPopup(key){
+        //pushInfo(key);
+        setImgurl(key);
+        setPopupOpen(false);
+        console.log(key);
+    }
+
     return(
-        <button onClick={nextPfp}>
-            <img src={pfps[imgnum]} alt="Profile" className="img-fluid rounded-circle mb-3" style={{ width: '150px' }} />
-        </button>
+        <div>
+            <button onClick={openPopup}>
+                <img src={"/"+imgurl || pfps[imgnum]} alt="Profile" className="img-fluid rounded-circle mb-3" style={{ width: '150px' }} />
+            </button>
+            <PfpPopup client={client} user={user} isOpen={popupOpen} onClose={closePopup} onSubmit={submitPopup}/>
+        </div>
     )
 }
 

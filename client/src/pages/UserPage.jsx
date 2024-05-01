@@ -20,8 +20,6 @@ import { deleteUser } from '../graphql/mutations';
 const StatsPage = ({setAgreedToTerms}) => {
     const navigate = useNavigate();
 
-   
-    //fake data until database is up 
 
     //user data stuff
     const [initializedBal, setBalInited] = useState(false);
@@ -120,7 +118,7 @@ const StatsPage = ({setAgreedToTerms}) => {
 
       const handleSignOut = async () => {
         await signOut();
-        setAgreedToTerms
+        setAgreedToTerms();
         navigate("/");
     }; 
     

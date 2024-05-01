@@ -8,5 +8,6 @@ type User @model @auth(rules: [{allow: public}]) {
   TotalSpinsSlots: Int
   TotalSpinsRoullette: Int
   Pfp: Int
+  PfpString: String
 }
  
