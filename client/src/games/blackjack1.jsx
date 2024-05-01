@@ -14,4 +14,4 @@ const blackJack1 = () =>
     )
 }
 
-export default blackJack1
+export default blackJack1 

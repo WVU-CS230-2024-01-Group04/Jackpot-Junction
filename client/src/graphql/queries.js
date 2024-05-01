@@ -12,6 +12,7 @@ export const getUser = /* GraphQL */ `
       GamesPlayedBlackjack
       TotalSpinsSlots
       TotalSpinsRoullette
+      Pfp
       createdAt
       updatedAt
       __typename
@@ -34,6 +35,7 @@ export const listUsers = /* GraphQL */ `
         GamesPlayedBlackjack
         TotalSpinsSlots
         TotalSpinsRoullette
+        Pfp
         createdAt
         updatedAt
         __typename

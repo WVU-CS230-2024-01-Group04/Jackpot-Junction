@@ -3,6 +3,27 @@
 **Jackpot-Junction:** This is a fun, free gambling site for blackjack slots and roulette 
 where user play games in an updated and clean UI directly in their browser. 
 
+
+**Getting Started**
+
+To get started with playing Blackjack, follow these steps:
+
+1. Clone the repository:
+
+- gh repo clone WVU-CS230-2024-01-Group04/Jackpot-Junction
+  
+2. Navigate into the project directory:
+
+-    cd client
+
+3. Then type the command below in the terminal 
+-    npm install
+-    amplify pull --appId d2guk0wqbl2y37 --envName staging
+-    npm start
+
+4. Then register by creating account and you are good to play the game.
+
+
       **Blackjack Game**
 Blackjack, formerly known as black jack and vingt-un, is a popular casino banking game played worldwide. 
 Here are some key points about the game:
@@ -64,25 +85,6 @@ The goal of blackjack is to get a hand value closer to 21 than the dealer withou
 2. Doubling down pays out at 1:1 on the original bet amount.
 
 3. Insurance (betting that the dealer has a Blackjack) pays out at 2:1.
-
-
-**Getting Started**
-
-To get started with playing Blackjack, follow these steps:
-
-1. Clone the repository:
-
-   git clone https://github.com/yourusername/blackjack-game.git
-
-2. Navigate into the project directory:
-
-   cd client
-
-3. Then type the command below
-   npm install
-   npm start
-
-4. Then register by creating account and you are good to play the game.
 
 
 
@@ -149,3 +151,44 @@ The payout amount depends on the specific combination of symbols and the size of
      
      The player's winnings are displayed at the end of each spin.
 
+
+
+**Roulette Game**
+
+Welcome to the exhilarating world of Roulette, a classic and iconic casino game that has captured the hearts of players for centuries. In this guide, we'll delve into the rules, history, and gameplay of Roulette to help you become a seasoned player.
+
+**History**
+
+Roulette, derived from the French word meaning "little wheel," traces its origins back to 18th-century France. Blaise Pascal, a renowned mathematician, is often credited with inventing an early form of the game in his quest to develop a perpetual motion machine. However, the modern version of Roulette as we know it today emerged in the late 18th century in Parisian casinos.
+
+**Objective**
+
+The objective of Roulette is simple: predict where the ball will land on the spinning wheel. Players place bets on a variety of outcomes, from specific numbers to groups of numbers, colors, or whether the outcome will be odd or even.
+
+**Game Setup**
+
+1. The Wheel: A Roulette wheel consists of numbered pockets ranging from 0 to 36, with alternating colors of red and black. In European Roulette, there is also a single green pocket marked with a 0, while American Roulette includes an additional green pocket marked with a 00.
+2. The Table: The Roulette table displays various betting options, including individual numbers, groups of numbers, and special bets. Players place their bets on the table before the wheel is spun.
+Gameplay:
+
+**Placing Bets**
+
+Before each spin, players have the opportunity to place their bets on the table. There are two main types of bets in Roulette: inside bets and outside bets.
+
+1. Inside Bets: These bets involve selecting specific numbers or combinations of numbers within the inner grid of the Roulette table. Examples include straight bets (betting on a single number) and split bets (betting on two adjacent numbers).
+
+2. Outside Bets: These bets cover larger groups of numbers and typically offer lower payouts. Examples include betting on red or black, odd or even, or betting on entire columns or dozens of numbers.
+
+**Spinning the Wheel**
+
+1. Once all bets have been placed, the dealer spins the Roulette wheel in one direction while simultaneously rolling a small ball in the opposite direction along the track surrounding the wheel.
+2. As the wheel loses momentum, the ball eventually comes to rest in one of the numbered pockets. The winning number is determined, and any bets that correspond to the outcome are paid out accordingly.
+
+**Winning and Losing**
+
+If a player's bet matches the outcome, they win a payout based on the type of bet placed and the odds associated with it.
+If the outcome does not match a player's bet, they lose their wager, and the house collects the chips.
+
+**Conclusion**
+
+Roulette offers an exhilarating blend of chance and strategy, making it a timeless favorite among casino enthusiasts. Whether you're drawn to the thrill of predicting precise numbers or prefer to play it safe with outside bets, Roulette offers something for every player to enjoy. So, place your bets, spin the wheel, and let the excitement of Roulette sweep you away into a world of endless possibilities!

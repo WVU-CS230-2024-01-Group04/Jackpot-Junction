@@ -38,6 +38,7 @@ const Popup = ({ isOpen, onClose, onSubmit }) =>
 
     return(
         <div>
+                {/* This html stuff here is for determining whether the popup is supposed to be open, and then displaying input boxes for credit card info. */}
         {isOpen && (
           <div className="popup-overlay">
             <div className="popup">

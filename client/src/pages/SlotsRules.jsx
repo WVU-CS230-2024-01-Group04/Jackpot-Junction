@@ -7,11 +7,13 @@ import "../styles/MainPage.css"
 const SlotsRules = () => {
     return(
         <div>
+            {/*Calls the navbar component*/}
             <Navbar currentPage="main"/>
 
             <h1>Slots</h1>
             <h3>Here are the rules for slots:</h3>
 
+            {/*Creates a unorderd list of rules outlining how to play*/}
             <div style={{ display: 'flex', justifyContent: 'center'}}>    
                 <ul>
                     <li>You are playing alone.</li>
@@ -27,7 +29,8 @@ const SlotsRules = () => {
 
             <div>
                 <h3>Here are the payouts:</h3>
-                
+
+                {/*creates a table of the payouts for the game*/}
                 <table>
                     <tr>
                         <th id = "topRow">
@@ -337,7 +340,8 @@ const SlotsRules = () => {
                     </tr>
                 </table>
             </div>
-            
+
+            {/*creates a game card to send the user to the slots game*/}
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '25px'}}>
                 <GameCard image={slotsimg1} link="/slots1" title="Slots"/>
             </div>

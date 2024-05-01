@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import kermitImage from "../images/kermit.webp";
+import UserPfp from "../components/userpfp.jsx";
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAuthenticator, AccountSettings , Authenticator} from '@aws-amplify/ui-react';
+import { useAuthenticator, AccountSettings } from '@aws-amplify/ui-react';
+import { DeleteUser } from '@aws-amplify/ui-react';
 import { generateClient } from 'aws-amplify/api';
 import * as queries from '../graphql/queries';
 import Popup from '../components/popup'
@@ -15,7 +17,8 @@ import { deleteUser } from '../graphql/mutations';
 
 
 
-const StatsPage = () => {
+const StatsPage = ({setAgreedToTerms}) => {
+    const navigate = useNavigate();
 
    
     //fake data until database is up 
@@ -39,7 +42,6 @@ const StatsPage = () => {
     function getPlayersBal(){
         const users = client.graphql({ query: queries.listUsers });
         users.then((value) => {
-            console.log(value.data.listUsers.items);
             if(user != null && user.username != null)
             value.data.listUsers.items.forEach((u) => {
                 if(u.Username === user.username){
@@ -97,8 +99,10 @@ const StatsPage = () => {
       }
 
     
+
       //delete user also in database as well
-      const handleDelete = async () => {
+      const handleDeleteSuccess = async () => {
+        
        await client.graphql({
             query: deleteUser,
             variables: {
@@ -106,9 +110,21 @@ const StatsPage = () => {
                     id: user.username
                 }
             }
+            
+            
         });
-       
-      };  
+        alert('Account successfully deleted!');
+        signOut();
+        navigate("/");
+      }; 
+
+      const handleSignOut = async () => {
+        await signOut();
+        setAgreedToTerms
+        navigate("/");
+    }; 
+    
+      
       
       
 
@@ -122,14 +138,13 @@ const StatsPage = () => {
                 <div className="col-md-4">
                     <div className="card text-center">
                         <div className="card-body">
-                            <img src={kermitImage} alt="Profile" className="img-fluid rounded-circle mb-3" style={{ width: '150px' }} />
+                            <UserPfp/>
                             <h4>Username: {username}</h4>
                             <h4>Balance: {money}</h4>
                             <button className="btn btn-primary" onClick={openPopup}>Get More Tokens</button>
                             <button className="btn btn-primary">Edit Profile</button>
-                            <button className="btn btn-primary" onClick={signOut}>Sign out</button>
-                            <AccountSettings.DeleteUser onSuccess={handleSuccess} handleDelete={handleDelete} />
-
+                            <button className="btn btn-primary" onClick={handleSignOut}>Sign out</button>
+                            <AccountSettings.DeleteUser onSuccess={handleDeleteSuccess} />
 
 
                         </div>
